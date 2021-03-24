@@ -11,22 +11,61 @@ import 'dart:core';
 class ObjTwoSideCard{
   String side1 = "";
   String side2 = "";
+  int cardnumber = 0;
   ObjTwoSideCard(String s1, String s2){
     this.side1 = s1;
     this.side2 = s2;
   }
 }
 
+class ObjTmpCardSort{
+  String name = "";
+  int cardnumber = 0;
+  ObjTmpCardSort(String n, int c){
+    this.name = n;
+    this.cardnumber = c;
+  }
+}
+
 class ObjCardHat{
   String name = "";
+  int groupnumber = 0;
   int from = 0;
   int to = 0;
-  List<ObjTwoSideCard> lstcards;
-  ObjCardHat(String n, int f, int t){
-    lstcards = new List<ObjTwoSideCard>();
+  List<ObjTwoSideCard> objlstcards;
+  List<int> cardFound;
+  ObjCardHat(String n, int f, int t, int g){
+    this.groupnumber = g;
+    this.objlstcards = new List<ObjTwoSideCard>();
+    this.cardFound = new List<int>();
     this.from = f;
     this.to = t;
     this.name = n;
+  }
+
+  void sortNewCard(String name, int number){
+    if(this.cardFound.contains(number)){
+      for(int i = 0; i < this.objlstcards.length; i++){
+        if(this.objlstcards[i].cardnumber == number){
+          if(name.endsWith("s1.png")){
+            this.objlstcards[i].side1 = name;
+          }else if(name.endsWith("s2.png")){
+            this.objlstcards[i].side2 = name;
+          }
+          break;
+        }
+      }
+    }else{
+      ObjTwoSideCard newcard = ObjTwoSideCard("","");
+      newcard.cardnumber = number;
+      if(name.endsWith("s1.png")){
+        newcard.side1 = name;
+      }else if(name.endsWith("s2.png")){
+        newcard.side2 = name;
+      }
+      this.objlstcards.add(newcard);
+      this.cardFound.add(number);
+    }
   }
 }
 
@@ -55,8 +94,8 @@ void sortingCards(){
   for(int i = 1; i < 11; i++){
     int from = 1 * (i*10) - 10 + 1;
     int to = 1 * (i*10);
-    print("Loading: " + from.toString() + " " + to.toString());
-    ObjCardHat tmp = ObjCardHat("Group_" + i.toString(),from,to);
+    print("Creating group: " + from.toString() + " " + to.toString());
+    ObjCardHat tmp = ObjCardHat("Group_" + i.toString(),from,to, i);
     LstCardCollection.add(tmp);
   }
 
@@ -68,12 +107,26 @@ void sortingCards(){
     if(LstCards[i].startsWith(cname)){
       String cardsplit1 = LstCards[i].split("Card_")[1];
       String cardsplit2 = cardsplit1.split("_")[0];
-      print(cardsplit2);
+      var cardnumber = int.parse(cardsplit2);
       for(int l = 0; l < LstCardCollection.length; l++){
-        if(i >= LstCardCollection[l].from && i <= LstCardCollection[l].to){
-          print(cname);
+        if(cardnumber >= LstCardCollection[l].from && cardnumber <= LstCardCollection[l].to){
+          LstCardCollection[l].sortNewCard(LstCards[i],cardnumber);
+          break;
         }
       }
+    }
+  }
+  //printCardGroups();
+}
+
+void printCardGroups(){
+  for(int i = 0; i < LstCardCollection.length; i++){
+    print(LstCardCollection[i].name);
+    for(int l = 0; l < LstCardCollection[i].objlstcards.length; l++){
+      var cardnumber = LstCardCollection[i].objlstcards[l].cardnumber;
+      var cards1 = LstCardCollection[i].objlstcards[l].side1;
+      var cards2 = LstCardCollection[i].objlstcards[l].side2;
+      print("Card " + cardnumber.toString() + " s1 " + cards1 + " s2 " + cards2);
     }
   }
 }
@@ -310,60 +363,28 @@ class TrainingScreen extends StatelessWidget {
                 
               child :Column (
                 mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  '',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                    ),
-                  
-                ),
-                  Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: SizedBox(
-                    width: double.infinity,
-                    height: 50.0,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("Home Screen"),
-                    ),
-                  )
-                  ),
-
-                  Padding(
+                //loading from List<ObjCardHat> LstCardCollection;
+              children: LstCardCollection.map((ObjCardHat data) {
+              /*return RaisedButton(
+                child: Text("Challenge " + data.groupnumber.toString()),
+                onPressed: () {
+                  print(data);
+                },
+              );*/
+              return Padding(
                       padding: EdgeInsets.all(16.0),
                       child: SizedBox(
                       width: double.infinity,
                       height: 50.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          //Navigator.pushNamed(context, '/training');
                         },
-                        child: Text("Training"),
+                        child: Text("Challenge " + data.groupnumber.toString()),
                       ),
                     )
-                  ),  
-
-                  Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: SizedBox(
-                      width: double.infinity,
-                      height: 50.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Challenges"),
-                      ),
-                    )
-                  ),            
-               
-              ],
+                  );
+            }).toList(),
               )   
           ),
 
