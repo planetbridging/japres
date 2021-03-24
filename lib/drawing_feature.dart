@@ -45,7 +45,7 @@ class MyDrawingPage extends StatefulWidget {
 class _MyDrawingState extends State<MyDrawingPage> {
   List<Offset> points = <Offset>[];
 
-  String bg = "cards/card_bg.jpg";
+  String bg = "assets/cards/card_bg.jpg";
   int LstCardsCount = 0;
 
   @override

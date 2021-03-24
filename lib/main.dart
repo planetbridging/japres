@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
                 decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("cards/card_bg.jpg"),
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Center(
                   child:Image(
-                    image: AssetImage("Logo.png"),
+                    image: AssetImage("assets/Logo.png"),
                   ),
                 ),
                 Text(
@@ -139,7 +139,7 @@ class SecondScreen extends StatelessWidget {
           Container(
                 decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("cards/card_bg.jpg"),
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
@@ -245,7 +245,7 @@ class TrainingScreen extends StatelessWidget {
           Container(
                 decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("cards/card_bg.jpg"),
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
@@ -316,7 +316,7 @@ class RunTrainingScreen extends StatelessWidget {
           Container(
                 decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("cards/card_bg.jpg"),
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
@@ -367,8 +367,8 @@ class _MainPageState extends State<FlipMainPage> {
           padding: EdgeInsets.all(16),
           child: Center(
             child: MovingCardWidget(
-              urlFront: 'cards/Card_1_Intro_Hiragana_O_s1.png',
-              urlBack: 'cards/Card_1_Intro_Hiragana_O_s2.png',
+              urlFront: 'assets/cards/Card_1_Intro_Hiragana_O_s1.png',
+              urlBack: 'assets/cards/Card_1_Intro_Hiragana_O_s2.png',
             ),
           ),
         ),
@@ -376,7 +376,7 @@ class _MainPageState extends State<FlipMainPage> {
 }
 
 List<Offset> points = <Offset>[];
-String bg = "cards/card_bg.jpg";
+String bg = "assets/cards/card_bg.jpg";
 class _FlipMainPageState extends State<FlipMainPage> {
   
   List<String> targetOptions = ['No target', '1', '2', '3', '4']; 
@@ -436,15 +436,15 @@ class _FlipMainPageState extends State<FlipMainPage> {
         body: Container(
           decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("cards/card_bg.jpg"),
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
           padding: EdgeInsets.all(16),
           child: Center(
             child: MovingCardWidget(
-              urlFront: "cards/" + twoSideCard.side1,
-              urlBack: "cards/" + twoSideCard.side2,
+              urlFront: "assets/cards/" + twoSideCard.side1,
+              urlBack: "assets/cards/" + twoSideCard.side2,
             ),
           ),
         ),

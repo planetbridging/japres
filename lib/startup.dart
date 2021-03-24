@@ -78,7 +78,7 @@ Future<String> getFileData(String path) async {
 }
 
 Future<List<String>> getCards() async {
-  String data = await getFileData('cards.txt');
+  String data = await getFileData('assets/cards.txt');
   LineSplitter ls = new LineSplitter();
   List<String> lines = ls.convert(data);
   LstCards = lines;
