@@ -434,14 +434,18 @@ class _FlipMainPageState extends State<FlipMainPage> {
           ]
          ),*/
         body: Container(
+          constraints: BoxConstraints.expand(),
           decoration: new BoxDecoration(
                   image: new DecorationImage(
                     image: new AssetImage("assets/cards/card_bg.jpg"),
                     fit: BoxFit.cover
                   ),
                 ),
-          padding: EdgeInsets.all(16),
-          child: Center(
+          padding: EdgeInsets.all(50),
+          child: Container(
+              //margin: const EdgeInsets.all(50.0),
+              //padding: EdgeInsets.all(25),
+              decoration: BoxDecoration(color: Colors.white),
             child: MovingCardWidget(
               urlFront: "assets/cards/" + twoSideCard.side1,
               urlBack: "assets/cards/" + twoSideCard.side2,

@@ -23,19 +23,21 @@ class _MovingCardWidgetState extends State<MovingCardWidget>
   bool isFront = true;
   double verticalDrag = 0;
 
+  String urlShow = "";
+
   @override
   void initState() {
     super.initState();
-
+  
     controller = AnimationController(
-      duration: const Duration(milliseconds: 100500),
+      duration: const Duration(milliseconds: 5000),
       vsync: this,
     );
   }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onVerticalDragStart: (details) {
+        /*onVerticalDragStart: (details) {
           controller.reset();
 
           setState(() {
@@ -58,11 +60,11 @@ class _MovingCardWidgetState extends State<MovingCardWidget>
               Tween<double>(begin: verticalDrag, end: end).animate(controller)
                 ..addListener(() {
                   setState(() {
-                    verticalDrag = animation.value;
+                    //verticalDrag = animation.value;
                     setImageSide();
                   });
                 });
-          controller.forward();
+          //controller.forward();
         },
         child: Transform(
           transform: Matrix4.identity()
@@ -76,15 +78,55 @@ class _MovingCardWidgetState extends State<MovingCardWidget>
                   alignment: Alignment.center,
                   child: Image.asset(widget.urlBack),
                 ),
-        ),
+        ),*/
+        /*,*/
+         /*onVerticalDragEnd: (details) {
+          final double end = 360 - verticalDrag >= 180 ? 0 : 360;
+
+          animation =
+              Tween<double>(begin: verticalDrag, end: end).animate(controller)
+                ..addListener(() {
+                  setState(() {
+                    //verticalDrag = animation.value;
+                    setImageSide();
+                  });
+                });
+          controller.forward();
+        },*/
+        onTap: () {
+          setState(() {
+               if(!isFront){
+              isFront = true;
+              }else{
+                isFront = false;
+              }
+          });
+         
+
+          print(isFront);
+        },
+        child: Container(
+          child: isFront
+              ? Image.asset(widget.urlFront)
+              : Image.asset(widget.urlBack)    
+        )
       );
 
   void setImageSide() {
     //print(verticalDrag);
     if (verticalDrag <= 90 || verticalDrag >= 270) {
       isFront = true;
+      
     } else {
       isFront = false;
     }
+    /*if(isFront){
+      verticalDrag = 0;
+      isFront = false;
+    }else{
+      verticalDrag = -270;
+      isFront = true;
+    }*/
+    //print(verticalDrag);
   }
 }
