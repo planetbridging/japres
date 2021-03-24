@@ -2,139 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'dart:core';
-
+import 'moving_card_widget.dart';
+import 'drawing_feature.dart';
+import 'startup.dart';
 /*void main() {
   runApp(MyApp());
 }*/
 
 
-class ObjTwoSideCard{
-  String side1 = "";
-  String side2 = "";
-  int cardnumber = 0;
-  ObjTwoSideCard(String s1, String s2){
-    this.side1 = s1;
-    this.side2 = s2;
-  }
-}
-
-class ObjTmpCardSort{
-  String name = "";
-  int cardnumber = 0;
-  ObjTmpCardSort(String n, int c){
-    this.name = n;
-    this.cardnumber = c;
-  }
-}
-
-class ObjCardHat{
-  String name = "";
-  int groupnumber = 0;
-  int from = 0;
-  int to = 0;
-  List<ObjTwoSideCard> objlstcards;
-  List<int> cardFound;
-  ObjCardHat(String n, int f, int t, int g){
-    this.groupnumber = g;
-    this.objlstcards = new List<ObjTwoSideCard>();
-    this.cardFound = new List<int>();
-    this.from = f;
-    this.to = t;
-    this.name = n;
-  }
-
-  void sortNewCard(String name, int number){
-    if(this.cardFound.contains(number)){
-      for(int i = 0; i < this.objlstcards.length; i++){
-        if(this.objlstcards[i].cardnumber == number){
-          if(name.endsWith("s1.png")){
-            this.objlstcards[i].side1 = name;
-          }else if(name.endsWith("s2.png")){
-            this.objlstcards[i].side2 = name;
-          }
-          break;
-        }
-      }
-    }else{
-      ObjTwoSideCard newcard = ObjTwoSideCard("","");
-      newcard.cardnumber = number;
-      if(name.endsWith("s1.png")){
-        newcard.side1 = name;
-      }else if(name.endsWith("s2.png")){
-        newcard.side2 = name;
-      }
-      this.objlstcards.add(newcard);
-      this.cardFound.add(number);
-    }
-  }
-}
-
-List<String> LstCards;
-List<ObjCardHat> LstCardCollection;
-
-
-Future<String> getFileData(String path) async {
-  return await rootBundle.loadString(path);
-}
-
-Future<List<String>> getCards() async {
-  String data = await getFileData('cards.txt');
-  LineSplitter ls = new LineSplitter();
-  List<String> lines = ls.convert(data);
-  LstCards = lines;
-  /*print("---Result---");
-  for (var i = 0; i < lines.length; i++) {
-    print('Line $i: ${lines[i]}');
-  }*/
-  return lines;
-}
-
-void sortingCards(){
-
-  for(int i = 1; i < 11; i++){
-    int from = 1 * (i*10) - 10 + 1;
-    int to = 1 * (i*10);
-    print("Creating group: " + from.toString() + " " + to.toString());
-    ObjCardHat tmp = ObjCardHat("Group_" + i.toString(),from,to, i);
-    LstCardCollection.add(tmp);
-  }
-
-  LstCardCollection[9].to = 110;
-
-  for(int i = 0; i < LstCards.length; i++){
-    //print(LstCards[i]);
-    String cname = "Card_";
-    if(LstCards[i].startsWith(cname)){
-      String cardsplit1 = LstCards[i].split("Card_")[1];
-      String cardsplit2 = cardsplit1.split("_")[0];
-      var cardnumber = int.parse(cardsplit2);
-      for(int l = 0; l < LstCardCollection.length; l++){
-        if(cardnumber >= LstCardCollection[l].from && cardnumber <= LstCardCollection[l].to){
-          LstCardCollection[l].sortNewCard(LstCards[i],cardnumber);
-          break;
-        }
-      }
-    }
-  }
-  //printCardGroups();
-}
-
-void printCardGroups(){
-  for(int i = 0; i < LstCardCollection.length; i++){
-    print(LstCardCollection[i].name);
-    for(int l = 0; l < LstCardCollection[i].objlstcards.length; l++){
-      var cardnumber = LstCardCollection[i].objlstcards[l].cardnumber;
-      var cards1 = LstCardCollection[i].objlstcards[l].side1;
-      var cards2 = LstCardCollection[i].objlstcards[l].side2;
-      print("Card " + cardnumber.toString() + " s1 " + cards1 + " s2 " + cards2);
-    }
-  }
-}
-
+//-----------------------------------------main app starting
 Future<void> main() async {
   LstCardCollection = new List<ObjCardHat>();
   runApp(MaterialApp(
-    title: 'Named Routes Demo',
+    title: 'Japres',
     // Start the app with the "/" named route. In this case, the app starts
     // on the FirstScreen widget.
     initialRoute: '/',
@@ -144,6 +24,8 @@ Future<void> main() async {
       // When navigating to the "/second" route, build the SecondScreen widget.
       '/second': (context) => SecondScreen(),
       '/training': (context) => TrainingScreen(),
+      '/runtraining': (context) => FlipMainPage(),
+      '/rundrawing': (context) => MyDrawingPage(),
     },
   ));
   await getCards();
@@ -310,7 +192,9 @@ class SecondScreen extends StatelessWidget {
                       height: 50.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                         // Navigator.pop(context);
+                         
+                          
                         },
                         child: Text("Challenges"),
                       ),
@@ -332,6 +216,11 @@ class SecondScreen extends StatelessWidget {
       )
     );
   }
+}
+
+class ScreenArguments {
+  final ObjCardHat objcards;
+  ScreenArguments(this.objcards);
 }
 
 
@@ -379,6 +268,12 @@ class TrainingScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pushNamed(context, '/training');
+                          selectedCards = data;
+                          Navigator.pushNamed(context, '/runtraining'
+                          /*,arguments: ScreenArguments(
+                            data
+                          )*/
+                          );
                         },
                         child: Text("Challenge " + data.groupnumber.toString()),
                       ),
@@ -400,3 +295,259 @@ class TrainingScreen extends StatelessWidget {
     );
   }
 }
+
+
+class RunTrainingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: Center(
+
+
+        child: GestureDetector(
+  onTap: () {
+    print("yay");
+    //Navigator.pushNamed(context, '/second');
+  }, // handle your image tap here
+  child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+                decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("cards/card_bg.jpg"),
+                    fit: BoxFit.cover
+                  ),
+                ),
+                
+              child :Column (
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              ],
+              )   
+          ),
+
+        
+        ]
+          //child: 
+        
+
+        
+      ),
+)
+      )
+    );
+  }
+}
+
+
+class FlipMainPage extends StatefulWidget {
+    final ObjCardHat selectedgroup;
+
+  const FlipMainPage({
+    Key key,
+    @required this.selectedgroup,
+  }) : super(key: key);
+
+  @override
+  _FlipMainPageState createState() => _FlipMainPageState();
+}
+
+class _MainPageState extends State<FlipMainPage> {
+
+  
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Training"),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(16),
+          child: Center(
+            child: MovingCardWidget(
+              urlFront: 'cards/Card_1_Intro_Hiragana_O_s1.png',
+              urlBack: 'cards/Card_1_Intro_Hiragana_O_s2.png',
+            ),
+          ),
+        ),
+      );
+}
+
+List<Offset> points = <Offset>[];
+String bg = "cards/card_bg.jpg";
+class _FlipMainPageState extends State<FlipMainPage> {
+  
+  List<String> targetOptions = ['No target', '1', '2', '3', '4']; 
+  String dropdownValue = 'One';
+  int viewingItem = 0;
+  ObjTwoSideCard twoSideCard;
+
+  _FlipMainPageState(){
+    twoSideCard = selectedCards.objlstcards[viewingItem];
+  }
+
+  Container sketchArea = Container(
+      decoration: new BoxDecoration(
+        image: new DecorationImage(
+          image: new AssetImage(bg),
+        ),
+      ),
+
+      margin: EdgeInsets.all(1.0),
+      alignment: Alignment.topLeft,
+      //color: Colors.blueGrey[50],
+      child: CustomPaint(
+        painter: Sketcher(points),
+      ),
+    );
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+
+
+    
+
+        appBar: AppBar(
+          title: Text("Training"),
+        ),
+
+         /*body: Stack(
+          children: <Widget>[
+            GestureDetector(
+
+              onPanUpdate: (DragUpdateDetails details) {
+                setState(() {
+                  RenderBox box = context.findRenderObject();
+                  Offset point = box.globalToLocal(details.globalPosition);
+                  point = point.translate(0.0, -(AppBar().preferredSize.height));
+
+                  points = List.from(points)..add(point);
+                });
+              },
+              onPanEnd: (DragEndDetails details) {
+                points.add(null);
+              },
+              child: sketchArea,
+            )
+          ]
+         ),*/
+        body: Container(
+          decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("cards/card_bg.jpg"),
+                    fit: BoxFit.cover
+                  ),
+                ),
+          padding: EdgeInsets.all(16),
+          child: Center(
+            child: MovingCardWidget(
+              urlFront: "cards/" + twoSideCard.side1,
+              urlBack: "cards/" + twoSideCard.side2,
+            ),
+          ),
+        ),
+/*
+          child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Container(
+                      decoration: new BoxDecoration(
+                        image: new DecorationImage(
+                          image: new AssetImage("cards/card_bg.jpg"),
+                          fit: BoxFit.cover
+                        ),
+                      ),
+                      
+                    child :Column (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                       CustomPaint(
+                        painter: Sketcher(points),
+                      )
+                    ],
+                    )   
+                ),
+
+              
+              ]
+                //child: 
+              
+
+              
+            )
+        ),*/
+        bottomNavigationBar: new Container(
+          decoration: new BoxDecoration(color: Colors.blue),
+    padding: EdgeInsets.all(0.0),
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+
+        Expanded(
+          flex: 1,
+          child: ElevatedButton(
+                        onPressed: () {
+                          //Navigator.pushNamed(context, '/training');
+                          Navigator.pushNamed(context, '/rundrawing');
+                          
+                        },
+                        child: Text("Start" ),
+                      )
+        ),
+         
+        /*Expanded(child: DropdownButton<String>(
+            value: dropdownValue,
+            
+                 
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.deepPurple),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (String newValue) {
+              setState(() {
+                dropdownValue = newValue;
+              });
+            },
+            
+            items: targetOptions//selectedCards.cardNames
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          )),*/
+
+          Expanded(
+          flex: 1,
+          child: ElevatedButton(
+                        onPressed: () {
+                          //on pressing next change card viewing
+                          setState(() {
+                            if(viewingItem < selectedCards.objlstcards.length - 1){
+                              viewingItem += 1;
+                              twoSideCard = selectedCards.objlstcards[viewingItem];
+                            }
+                          });
+                          //Navigator.pushNamed(context, '/training');
+                          //Navigator.pushNamed(context, '/runtraining');
+                          //print(selectedCard.name);
+                          
+                        },
+                        child: Text("Next "),
+                      )
+        ),
+        
+      ],
+    ),
+        )
+      );
+}
+
+//----------------------
