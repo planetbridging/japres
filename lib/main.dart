@@ -5,6 +5,7 @@ import 'dart:core';
 //import 'moving_card_widget.dart';
 //import 'drawing_feature.dart';
 import 'startup.dart';
+import 'game.dart';
 
 /*void main() {
   runApp(MyApp());
@@ -30,6 +31,7 @@ Future<void> main() async {
       '/runtraining': (context) => FlipMainPage(),
       '/rundrawing': (context) => MyDrawingPage(),
       '/practicewriting': (context) => PracticeWriting(),
+      '/game1': (context) => MyDrawingGamePage(),
       
     },
   ));
@@ -185,6 +187,19 @@ class SecondScreen extends StatelessWidget {
                           Navigator.pushNamed(context, '/practicewriting');
                         },
                         child: Text("Practice writing"),
+                      ),
+                    )
+                  ), 
+                  Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: SizedBox(
+                      width: double.infinity,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/game1');
+                        },
+                        child: Text("Game"),
                       ),
                     )
                   ), 
