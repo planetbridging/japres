@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'dart:core';
+//.import 'package:webview_flutter/webview_flutter.dart';
+//import 'dart:js' as js;
 //import 'moving_card_widget.dart';
 //import 'drawing_feature.dart';
 import 'startup.dart';
 import 'game.dart';
+import 'galaxy_game.dart';
+import 'multiple_choice.dart';
+import 'LstOfObjs.dart';
 
 /*void main() {
   runApp(MyApp());
 }*/
 
+int selected_quiz_group = 0;
 
 //-----------------------------------------main app starting
 
@@ -27,11 +33,15 @@ Future<void> main() async {
       '/': (context) => MyApp(),
       // When navigating to the "/second" route, build the SecondScreen widget.
       '/second': (context) => SecondScreen(),
-      '/training': (context) => TrainingScreen(),
+     // '/training': (context) => TrainingScreen(),
       '/runtraining': (context) => FlipMainPage(),
       '/rundrawing': (context) => MyDrawingPage(),
       '/practicewriting': (context) => PracticeWriting(),
+      '/multiplechoice': (context) => TrainingScreen(),
+      '/quiz': (context) => QuizApp(selectedCards),
       '/game1': (context) => MyDrawingGamePage(),
+      '/galaxygame': (context) => GalaxyGame(),
+      //'/game2': (context) => AnimatedLogo(),
       
     },
   ));
@@ -197,12 +207,26 @@ class SecondScreen extends StatelessWidget {
                       height: 50.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/game1');
+                          Navigator.pushNamed(context, '/multiplechoice');
+                        },
+                        child: Text("Multiple choice"),
+                      ),
+                    )
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: SizedBox(
+                      width: double.infinity,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/galaxygame');
                         },
                         child: Text("Game"),
                       ),
                     )
                   ), 
+                  //multiplechoice
                   /*Padding(
                       padding: EdgeInsets.all(16.0),
                       child: SizedBox(
@@ -305,13 +329,13 @@ class TrainingScreen extends StatelessWidget {
                         onPressed: () {
                           //Navigator.pushNamed(context, '/training');
                           selectedCards = data;
-                          Navigator.pushNamed(context, '/runtraining'
+                          Navigator.pushNamed(context, '/quiz'
                           /*,arguments: ScreenArguments(
                             data
                           )*/
                           );
                         },
-                        child: Text("Training " + data.groupnumber.toString()),
+                        child: Text("Cards from " + data.from.toString() + " to " + data.to.toString()),
                       ),
                     )
                   );
@@ -448,26 +472,6 @@ class _FlipMainPageState extends State<FlipMainPage> {
           title: Text("Training"),
         ),
 
-         /*body: Stack(
-          children: <Widget>[
-            GestureDetector(
-
-              onPanUpdate: (DragUpdateDetails details) {
-                setState(() {
-                  RenderBox box = context.findRenderObject();
-                  Offset point = box.globalToLocal(details.globalPosition);
-                  point = point.translate(0.0, -(AppBar().preferredSize.height));
-
-                  points = List.from(points)..add(point);
-                });
-              },
-              onPanEnd: (DragEndDetails details) {
-                points.add(null);
-              },
-              child: sketchArea,
-            )
-          ]
-         ),*/
         body: Container(
           constraints: BoxConstraints.expand(),
           decoration: new BoxDecoration(
@@ -518,57 +522,6 @@ class _FlipMainPageState extends State<FlipMainPage> {
                           );
           },
         ),
-
-        /*bottomNavigationBar: new Container(
-          decoration: new BoxDecoration(color: Colors.blue),
-    padding: EdgeInsets.all(0.0),
-    child: Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-
-        Expanded(
-          flex: 1,
-          child: ElevatedButton(
-                        onPressed: () {
-                          //Navigator.pushNamed(context, '/training');
-                          selectedChallengeDrawing = "assets/cards/" + twoSideCard.side2;
-                          Navigator.pushNamed(context, '/rundrawing',
-                          
-                          arguments: DrawingScreenArguments(
-                              "assets/cards/" + twoSideCard.side2
-                            )
-                          );
-                          
-                        },
-                        child: Text("Start" ),
-                      )
-        ),
-
-          Expanded(
-          flex: 1,
-          child: ElevatedButton(
-                        onPressed: () {
-                          //on pressing next change card viewing
-                          
-                          setState(() {
-                            if(viewingItem < selectedCards.objlstcards.length - 1){
-                              viewingItem += 1;
-                              twoSideCard = selectedCards.objlstcards[viewingItem];
-                              isFront = true;
-                            }
-                          });
-                          //Navigator.pushNamed(context, '/training');
-                          //Navigator.pushNamed(context, '/runtraining');
-                          //print(selectedCard.name);
-                          
-                        },
-                        child: Text("Next "),
-                      )
-        ),
-        
-      ],
-    ),
-        )*/
       );
 }
 
@@ -667,21 +620,6 @@ class _MyDrawingState extends State<MyDrawingPage> {
       appBar: AppBar(
         title: Text('Writing'),
       ),
-      /*body: GestureDetector(
-        onPanUpdate: (DragUpdateDetails details) {
-          setState(() {
-            RenderBox box = context.findRenderObject();
-            Offset point = box.globalToLocal(details.globalPosition);
-            point = point.translate(0.0, -(AppBar().preferredSize.height));
-
-            points = List.from(points)..add(point);
-          });
-        },
-        onPanEnd: (DragEndDetails details) {
-          points.add(null);
-        },
-        child: sketchArea,
-      ),*/
 
 
         body: Container(
@@ -710,78 +648,7 @@ class _MyDrawingState extends State<MyDrawingPage> {
               child: sketchArea,
             ),
         ),
-       // body: Stack(
-          
-         // children: <Widget>[
-            /*Image(
-              image: AssetImage("cards/card_bg.jpg"),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              fit: BoxFit.cover,
-            ),*/
-            
-           /* new Container(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(image: new AssetImage("cards/card_bg.jpg"), fit: BoxFit.cover,),
-              ),
 
-              child: GestureDetector(
-                onPanUpdate: (DragUpdateDetails details) {
-                  setState(() {
-                    RenderBox box = context.findRenderObject();
-                    Offset point = box.globalToLocal(details.globalPosition);
-                    point = point.translate(0.0, -(AppBar().preferredSize.height));
-
-                    points = List.from(points)..add(point);
-                  });
-                },
-                onPanEnd: (DragEndDetails details) {
-                  points.add(null);
-                },
-                child: sketchArea,
-              ),
-            ),*/
-
-
-         // ],
-       // ),
-      /*persistentFooterButtons: [
-        RaisedButton(
-          onPressed: () async{
-
-          },
-          child: const Text('Next Image', style: TextStyle(fontSize: 30)),
-          color: Colors.blue,
-          textColor: Colors.white,
-          elevation: 5,
-        ),
-        RaisedButton(
-          onPressed: () {
-          },
-          child: const Text('Compare', style: TextStyle(fontSize: 30)),
-          color: Colors.blue,
-          textColor: Colors.white,
-          elevation: 5,
-        ),
-        RaisedButton(
-          onPressed: (){
-           
-          },
-          child: const Text('Save 1', style: TextStyle(fontSize: 30)),
-          color: Colors.blue,
-          textColor: Colors.white,
-          elevation: 5,
-        ),
-        RaisedButton(
-          onPressed: (){
-  
-          },
-          child: const Text('Save 2', style: TextStyle(fontSize: 30)),
-          color: Colors.blue,
-          textColor: Colors.white,
-          elevation: 5,
-        ),
-      ],*/
       floatingActionButton: FloatingActionButton(
         tooltip: 'clear Screen',
         backgroundColor: Colors.red,
@@ -795,18 +662,6 @@ class _MyDrawingState extends State<MyDrawingPage> {
 }
 
 
-    /*LstCardCollection.map((ObjCardHat data) {
-              List<ObjTwoSideCard> allcards = data.objlstcards;
-              print("yyay");
-              return Widget(
-                    children: allcards.map((ObjTwoSideCard cardSides) {
-                      return Image(image: AssetImage('assets/cards/' + cardSides.side1));
-                      }).toList()
-                  );
-                  
-                  
-                  /**/
-            }).toList()  */
 ObjTwoSideCard findCards(int number){
   int count = 1;
   ObjTwoSideCard found = LstCardCollection[0].objlstcards[0];
@@ -826,31 +681,7 @@ ObjTwoSideCard findCards(int number){
   return found;
 }
 
-                /*child: GestureDetector(
-                  onTap: () {
-                      //selectedCards = data;
-                          Navigator.pushNamed(context, '/runtraining'
-                          /*,arguments: ScreenArguments(
-                            data
-                          )*/
-                          );
-                    },
-                  child: Image.asset("assets/cards/" + findCards(countUsed).side1)*/
-
-/*return SingleChildScrollView( child: Column(
-      children: <Widget>[
-        for (int i = 1;i <= 104;i++) GestureDetector(
-                  onTap: () {
-                      //selectedCards = data;
-                          Navigator.pushNamed(context, '/runtraining'
-                          /*,arguments: ScreenArguments(
-                            data
-                          )*/
-                          );
-                    },
-                  child: Image.asset("assets/cards/" + findCards(i).side1)),
-      ],
-    ));*/
+               
 ObjTwoSideCard twoSideCard;
     List _buildList(BuildContext context,int count) {  
       
@@ -948,43 +779,7 @@ body: CustomScrollView(
             children: _buildList(context,104)
           )
         ]
-)
-      /*body:
-            Container(
-              constraints: BoxConstraints.expand(),
-              child: ListView(
-          children: [
-              for (int i = 1;i <= 104;i++) GestureDetector(
-                  onTap: () {
-                      //selectedCards = data;
-                          Navigator.pushNamed(context, '/runtraining'
-                          /*,arguments: ScreenArguments(
-                            data
-                          )*/
-                          );
-                    },
-                  child: Container(
-                    
-                    decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/cards/card_bg.jpg"),
-                    //fit: BoxFit.cover
-                  ),
-                ),
-                     padding: EdgeInsets.all(50),
-                    child: Image.asset("assets/cards/" + findCards(i).side1
-                    /*,width: 260,
-              height: 434*/
-                    ,fit: BoxFit.cover,
-                  )
-
-                  )),
-            ],
-            
-          )
-            )*/
-          
-        
+)        
         
     );
   }
