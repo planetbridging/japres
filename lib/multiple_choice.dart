@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import  'package:explode_view/explode_view.dart'; 
 import 'package:flutter/material.dart';
 import 'package:japres/main.dart';
 
@@ -10,7 +10,7 @@ ObjPassQuiz passedQuizData;
 List<ObjTwoSideCard> normalShuffled;
 List<ObjTwoSideCard> random1Shuffled;
 List<ObjTwoSideCard> random2Shuffled;
-var totalScore = 0;
+int totalScore = 0;
 int questionNumber = 0;
 String answerBtn = "";
 String showQuestion = "";
@@ -28,7 +28,7 @@ void loadQuestion() {
     lstanswers.add("assets/cards/"  + random1Shuffled[questionNumber].side2);
     lstanswers.add("assets/cards/"  + random2Shuffled[questionNumber].side2);
     lstrandomanswers = lstanswers.toList()..shuffle();
-    print(lstrandomanswers[0]);
+    //print(lstrandomanswers[0]);
     //print("assets/cards/" + lstrandomanswers[0]);
     //btn1 = "assets/cards/" + normalShuffled[questionNumber].side2;
 
@@ -38,9 +38,10 @@ void loadQuestion() {
     btn3 = lstrandomanswers[2];
       //btn2 = "assets/cards/" + lstrandomanswers[1];
       //btn3 = "assets/cards/" + lstrandomanswers[2];
-      
-
+    
 }
+
+
 
 class ExtractQuizArgumentsScreen extends StatelessWidget {
   static const routeName = '/quiz';
@@ -85,8 +86,28 @@ class _QuizAppState extends State<QuizApp> {
     });
   }
 
-  void nextQuestion(){
-
+  void nextQuestion(String cardAnswer){
+    if(questionNumber < normalShuffled.length){ 
+      if(cardAnswer == answerBtn){
+        totalScore+= 1;
+      }
+      
+      print("Answered " + totalScore.toString() + " ");
+      if(questionNumber >= (normalShuffled.length - 1)){
+        print("Score " + totalScore.toString() + " ");
+        
+                          Navigator.pushNamed(context, '/finishedquiz',
+                          );
+      }else{
+        questionNumber += 1;
+        setState(() {
+          loadQuestion();
+        });
+      }
+      
+      
+    }
+    
   }
 
   
@@ -137,7 +158,7 @@ class _QuizAppState extends State<QuizApp> {
                             Padding(
                               padding: EdgeInsets.all(20.0),
                               child: Text(
-                              "Match the card - Question " + questionNumber.toString(),
+                              "Match the card - Question " + (questionNumber+1).toString(),
                               style: new TextStyle(
                                 fontSize: 40.0,
                                 color: Colors.white,
@@ -147,7 +168,7 @@ class _QuizAppState extends State<QuizApp> {
                               flex: 1,
                                 child: ElevatedButton(
                         onPressed: () {
-                          nextQuestion();
+                          nextQuestion(btn1);
                         },
 
                         child: FittedBox(
@@ -165,6 +186,7 @@ class _QuizAppState extends State<QuizApp> {
                               flex: 1,
                                 child: ElevatedButton(
                         onPressed: () {
+                            nextQuestion(btn2);
                         },
 
                           child: FittedBox(
@@ -182,6 +204,7 @@ class _QuizAppState extends State<QuizApp> {
                               flex: 1,
                                 child: ElevatedButton(
                         onPressed: () {
+                          nextQuestion(btn3);
                         },
 
                           child: FittedBox(
@@ -211,5 +234,107 @@ class _QuizAppState extends State<QuizApp> {
        //Scaffold
 
     ); //MaterialApp
+  }
+}
+
+
+//------------------------------------finished screen
+
+class FinishedQuizScreen extends StatefulWidget {
+  FinishedQuizScreen({Key key, this.title}) : super(key: key);
+
+
+  final String title;
+
+  @override
+  _FinishedQuizScreenState createState() => _FinishedQuizScreenState();
+}
+
+class _FinishedQuizScreenState extends State<FinishedQuizScreen> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      /*appBar: AppBar(
+        title: Text(widget.title),
+      ),*/
+      body: Center(
+
+
+        child: GestureDetector(
+  onTap: () {
+    print("yay");
+    //Navigator.pushNamed(context, '/second');
+  }, // handle your image tap here
+  child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+                decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/cards/card_bg.jpg"),
+                    fit: BoxFit.cover
+                  ),
+                ),
+                
+              child :Column (
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  /*child:Image(
+                    image: AssetImage("assets/Logo.png"),
+                  ),*/
+                  child: Stack(
+                    children: [ExplodeView(  
+                    imagePath: "assets/Logo.png", 
+                    imagePosFromLeft: 10, 
+                    imagePosFromTop: 10,  // path where the image is stored 
+                    //imagePosFromLeft: 	120.0, // set x-coordinate for image 
+                    //imagePosFromRight: 300.0,  // set y-coordinate for image 
+                      
+                    )], 
+                  )
+                ),
+                Center(
+                  child:Image(
+                    image: AssetImage("assets/Logo.png"),
+                  ),
+                ),
+                Text(
+                    "Finished!!! " + totalScore.toString(),
+                    style: new TextStyle(
+                      fontSize: 40.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: SizedBox(
+                    width: double.infinity,
+                    height: 50.0,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/second');
+                      },
+                      child: Text("Main Menu"),
+                    ),
+                  )
+                  ),
+               
+              ],
+              )   
+          ),
+
+        
+        ]
+          //child: 
+        
+
+        
+      ),
+)
+      )
+      // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }

@@ -45,6 +45,9 @@ Future<void> main() async {
       //'/quiz': (context) => QuizApp(),
       '/game1': (context) => MyDrawingGamePage(),
       '/galaxygame': (context) => GalaxyGame(),
+
+      '/finishedquiz': (context) => FinishedQuizScreen(),
+      //FinishedQuizScreen
       //'/game2': (context) => AnimatedLogo(),
       
     },
@@ -330,7 +333,7 @@ class TrainingScreen extends StatelessWidget {
                           //Navigator.pushNamed(context, '/training');
                           selectedCards = data;
                           generateRandomCards();
-
+                          
                           Navigator.pushNamed(context, '/quiz',
                             arguments: ObjPassQuiz(
                               selectedCards,
