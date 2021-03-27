@@ -63,3 +63,10 @@ class ObjCardHat{
     }
   }
 }
+
+class ObjPassQuiz{
+  final ObjCardHat normalCards;
+  final ObjCardHat random1Cards;
+  final ObjCardHat random2Cards;
+  ObjPassQuiz(this.normalCards,this.random1Cards,this.random2Cards);
+}

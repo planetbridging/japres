@@ -24,11 +24,15 @@ String selectedChallengeDrawing = "";
 Future<void> main() async {
   LstCardCollection = new List<ObjCardHat>();
   runApp(MaterialApp(
+    
     title: 'Japres',
     // Start the app with the "/" named route. In this case, the app starts
     // on the FirstScreen widget.
+    //selectedCards,randomCards2,randomCards2
     initialRoute: '/',
     routes: {
+      ExtractQuizArgumentsScreen.routeName: (context) => ExtractQuizArgumentsScreen(),
+      
       // When navigating to the "/" route, build the FirstScreen widget.
       '/': (context) => MyApp(),
       // When navigating to the "/second" route, build the SecondScreen widget.
@@ -38,7 +42,7 @@ Future<void> main() async {
       '/rundrawing': (context) => MyDrawingPage(),
       '/practicewriting': (context) => PracticeWriting(),
       '/multiplechoice': (context) => TrainingScreen(),
-      '/quiz': (context) => QuizApp(selectedCards),
+      //'/quiz': (context) => QuizApp(),
       '/game1': (context) => MyDrawingGamePage(),
       '/galaxygame': (context) => GalaxyGame(),
       //'/game2': (context) => AnimatedLogo(),
@@ -73,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       /*appBar: AppBar(
         title: Text(widget.title),
@@ -273,16 +276,16 @@ class SecondScreen extends StatelessWidget {
     );
   }
 }
-
+/*
 class ScreenArguments {
-  final ObjCardHat objcards;
+  final List<ObjCardHat> objcards;
   ScreenArguments(this.objcards);
 }
 
 class DrawingScreenArguments {
   final String objcards1;
   DrawingScreenArguments(this.objcards1);
-}
+}*/
 
 class TrainingScreen extends StatelessWidget {
   @override
@@ -294,11 +297,8 @@ class TrainingScreen extends StatelessWidget {
       body: Center(
 
 
-        child: GestureDetector(
-  onTap: () {
-    print("yay");
-    //Navigator.pushNamed(context, '/second');
-  }, // handle your image tap here
+        child: Container(
+// handle your image tap here
   child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -329,10 +329,14 @@ class TrainingScreen extends StatelessWidget {
                         onPressed: () {
                           //Navigator.pushNamed(context, '/training');
                           selectedCards = data;
-                          Navigator.pushNamed(context, '/quiz'
-                          /*,arguments: ScreenArguments(
-                            data
-                          )*/
+                          generateRandomCards();
+
+                          Navigator.pushNamed(context, '/quiz',
+                            arguments: ObjPassQuiz(
+                              selectedCards,
+                              randomCards1,
+                              randomCards2
+                            )
                           );
                         },
                         child: Text("Cards from " + data.from.toString() + " to " + data.to.toString()),
@@ -515,10 +519,10 @@ class _FlipMainPageState extends State<FlipMainPage> {
           backgroundColor: Colors.red,
           child: Text("Start!!!"),
           onPressed: () {
-            Navigator.pushNamed(context, '/rundrawing',
+            Navigator.pushNamed(context, '/rundrawing'/*,
                           arguments: DrawingScreenArguments(
                               "assets/cards/" + twoSideCard.side2
-                            )
+                            )*/
                           );
           },
         ),

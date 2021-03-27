@@ -9,6 +9,8 @@ List<String> LstCards;
 List<ObjCardHat> LstCardCollection;
 
 ObjCardHat selectedCards;
+ObjCardHat randomCards1;
+ObjCardHat randomCards2;
 
 
 Future<String> getFileData(String path) async {
@@ -68,4 +70,26 @@ void printCardGroups(){
       print("Card " + cardnumber.toString() + " s1 " + cards1 + " s2 " + cards2);
     }
   }
+}
+
+
+List<ObjCardHat> removeDuplicateCards(List<ObjCardHat> lst,ObjCardHat ignore){
+  List<ObjCardHat> lsttmp = new List<ObjCardHat>();
+
+  for(int i = 0; i < lst.length; i++){
+    if(ignore.groupnumber != lst[i].groupnumber){
+      lsttmp.add(lst[i]);
+    }
+  }
+  return lsttmp;
+}
+
+void generateRandomCards(){
+  List<ObjCardHat> randomgen1 = removeDuplicateCards(LstCardCollection,selectedCards).toList()..shuffle();
+  //print(LstCardCollection.length);
+  randomCards1 = randomgen1[0];
+  //print("generated random cards");
+  List<ObjCardHat> randomgen2 = removeDuplicateCards(randomgen1,randomCards1).toList()..shuffle();
+  randomCards2 = randomgen2[0];
+  //print("generated random cards");
 }
