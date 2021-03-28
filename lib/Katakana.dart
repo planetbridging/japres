@@ -76,7 +76,7 @@ dispose() {
                   child: Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                      "Learning hiragana",
+                      "Learning katakana",
                       style: TextStyle(fontSize: 30),
                     )
                   )
@@ -92,7 +92,7 @@ dispose() {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        //Navigator.pushNamed(context, '/hiraganamutliplechoice');
+                        Navigator.pushNamed(context, '/katakanamutliplechoice');
                         //hiraganamutliplechoice
                       },
                       child: Text("Multiple choice"),

@@ -30,8 +30,6 @@ dispose() {
         title: Text(widget.title),
       ),*/
       body: Center(
-
-
         child: GestureDetector(
   onTap: () {
     //Navigator.pushNamed(context, '/mainmenu');
@@ -107,6 +105,7 @@ dispose() {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.pushNamed(context, '/katakanalearning');
                         //Navigator.pop(context);
                       },
                       child: Text("Katakana"),

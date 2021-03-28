@@ -3,7 +3,9 @@ import 'main_menu.dart';
 import 'Hiragana.dart';
 import 'Katakana.dart';
 import 'hiragana_multiple_choice.dart';
+import 'katakana_multiple_choice.dart';
 import 'Hiragana_quiz.dart';
+import 'katakana_quiz.dart';
 import 'quiz_done.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
@@ -17,6 +19,7 @@ main() {
     initialRoute: '/',
     routes: {
       HiraganaQuiz.routeName: (context) => HiraganaQuiz(),
+      KatakanaQuiz.routeName: (context) => KatakanaQuiz(),
       QuizDone.routeName: (context) => QuizDone(),
       
       '/': (context) => Avatar(),
@@ -24,8 +27,9 @@ main() {
       '/hiraganalearning': (context) => HiraganaLearning(),
       '/hiraganamutliplechoice': (context) => HiraganaMultipleChoiceLearning(),
 
-      '/katakanalearning': (context) => HiraganaLearning(),
-      //HiraganaLearning
+      '/katakanalearning': (context) => KatakanaLearning(),
+      '/katakanamutliplechoice': (context) => KatakanaMultipleChoiceLearning(),
+      //katakanaMultipleChoiceLearning
     },
   ));
 }
