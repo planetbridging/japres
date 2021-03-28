@@ -28,7 +28,7 @@ dispose() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hiragana multiple choice"),
+        title: Text("Katakan multiple choice"),
       ),
       body: Center(
 

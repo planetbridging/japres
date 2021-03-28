@@ -112,12 +112,28 @@ dispose() {
                     ),
                   )
                   ),
+
+                  Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: SizedBox(
+                    //width: double.infinity / 2,
+                    width: MediaQuery.of(context).size.width/ 2,
+                    height: 50.0,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/gallery');
+                        //hiraganamutliplechoice
+                      },
+                      child: Text("Gallery"),
+                    ),
+                  )
+                  ),
                
               ],
               )   
           ),
 
-        
+          
         ]
           //child: 
         
