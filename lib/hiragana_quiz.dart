@@ -53,7 +53,12 @@ void nextQuestion(String a){
       print(itemView);
       loadQuestion();
     }else{
-      print("marks " + marks.toString());
+      //print("marks " + marks.toString());
+      String results = marks.toString() + "/" + (importedargs.normal.length - 1).toString();
+      ObjQuizResults tmpobj = new ObjQuizResults("Hiragana " + importedargs.group,results);
+      Navigator.pushNamed(context, '/quizdone',
+        arguments: tmpobj
+      );
     }
 
  

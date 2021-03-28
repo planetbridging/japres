@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
-import 'ObjLst.dart';
 
-class QuizDone extends StatefulWidget {
-
-
-  static const routeName = '/quizdone';
-
+class KatakanaLearning extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _QuizDone();
+  State<StatefulWidget> createState() => _KatakanaLearning();
 }
 
-class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
+class _KatakanaLearning extends State<KatakanaLearning> with TickerProviderStateMixin {
   AnimationController _controller;
   Tween<double> _tween = Tween(begin: 1.75, end: 2);
-
-  String title = "hiragana 0 to 0";
-  String results = "0/0";
 
   @override
   void initState() {
@@ -33,22 +25,10 @@ dispose() {
 
    @override
   Widget build(BuildContext context) {
-
-
-    final ObjQuizResults args = ModalRoute.of(context).settings.arguments;
-  
-
-    if(args != null){
-      //print(args.title);
-      //print(args.results);
-      title = args.title;
-      results = args.results;
-    }
-
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text("Learning hiragana"),
-      ),*/
+      appBar: AppBar(
+        title: Text("Learning katakana"),
+      ),
       body: Center(
 
 
@@ -79,7 +59,7 @@ dispose() {
                       //child: CircleAvatar(backgroundImage: AssetImage("assets/imgs/Logo.png")),
                       child: Center(
                         child:Image(
-                          image: AssetImage("assets/imgs/anime_glasses_boy.png"),
+                          image: AssetImage("assets/imgs/red_hair_boy_with_chest.png"),
                         ),
                       )
                     ),
@@ -96,38 +76,15 @@ dispose() {
                   child: Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                      "Well done",
+                      "Learning hiragana",
                       style: TextStyle(fontSize: 30),
                     )
                   )
                   
                 ),
-                  Container(
-                     width: MediaQuery.of(context).size.width/ 2,
-                     height: MediaQuery.of(context).size.height/ 2,
-                    decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/imgs/Card-showing-fav-anime.jpg"),
-                    //fit: BoxFit.cover
-                  ),
-                ),
-                    child :Column (
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 70.0),
-                        child: Text(title ,style: TextStyle(fontSize: 30),),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                        child: Text(results , style: TextStyle(fontSize: 30),),
-                      )
-                      
-                      
-                    ]
-                  )
-                      )
-                ,Padding(
+
+
+                Padding(
                       padding: EdgeInsets.all(16.0),
                       child: SizedBox(
                     //width: double.infinity / 2,
@@ -135,15 +92,15 @@ dispose() {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/mainmenu');
+                        //Navigator.pushNamed(context, '/hiraganamutliplechoice');
                         //hiraganamutliplechoice
                       },
-                      child: Text("Main menu"),
+                      child: Text("Multiple choice"),
                     ),
                   )
                   ),
+               
               ],
-              
               )   
           ),
 

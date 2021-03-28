@@ -53,10 +53,17 @@ var characters = [
 
 class ObjPassQuiz{
   final String title;
+  final String group;
   final List<List<String>> normal;
   final List<List<String>> random1;
   final List<List<String>> random2;
-  ObjPassQuiz(this.title,this.normal,this.random1,this.random2);
+  ObjPassQuiz(this.title,this.normal,this.random1,this.random2,this.group);
+}
+
+class ObjQuizResults{
+  final String title;
+  final String results;
+  ObjQuizResults(this.title,this.results);
 }
 
 List<List<String>> getCharacterGroup(int from,int to){
@@ -89,7 +96,7 @@ ObjPassQuiz generateQuizHiragana(String title,int from,int to){
   List<List<String>> normal = getCharacterGroup(from,to);
   List<List<String>> random1= generateRandom(from,to,normal.length);
   List<List<String>> random2= generateRandom(from,to,normal.length);
-
-  ObjPassQuiz tmp = new ObjPassQuiz(title,normal,random1,random2);
+  String group = from.toString() + " to " + to.toString();
+  ObjPassQuiz tmp = new ObjPassQuiz(title,normal,random1,random2, group );
   return tmp;
 }

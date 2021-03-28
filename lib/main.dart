@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'main_menu.dart';
 import 'Hiragana.dart';
+import 'Katakana.dart';
 import 'hiragana_multiple_choice.dart';
 import 'Hiragana_quiz.dart';
+import 'quiz_done.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -15,11 +17,14 @@ main() {
     initialRoute: '/',
     routes: {
       HiraganaQuiz.routeName: (context) => HiraganaQuiz(),
-
+      QuizDone.routeName: (context) => QuizDone(),
+      
       '/': (context) => Avatar(),
       '/mainmenu': (context) => MainMenu(),
       '/hiraganalearning': (context) => HiraganaLearning(),
       '/hiraganamutliplechoice': (context) => HiraganaMultipleChoiceLearning(),
+
+      '/katakanalearning': (context) => HiraganaLearning(),
       //HiraganaLearning
     },
   ));
