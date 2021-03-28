@@ -78,7 +78,8 @@ dispose() {
                     height: 50.0,
                     child: RaisedButton(
                       onPressed: () {
-                        print("yay");
+                        
+                        Navigator.pushNamed(context, '/galleryview');
                       },
                       //color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
                       color: randomGenerator(),

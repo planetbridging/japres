@@ -8,6 +8,7 @@ import 'Hiragana_quiz.dart';
 import 'katakana_quiz.dart';
 import 'quiz_done.dart';
 import 'gallery.dart';
+import 'gallery_view.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -32,6 +33,9 @@ main() {
       '/katakanamutliplechoice': (context) => KatakanaMultipleChoiceLearning(),
 
       '/gallery': (context) => Gallery(),
+      '/galleryview': (context) => GalleryView(),
+
+      
       //Gallery
       //katakanaMultipleChoiceLearning
     },
