@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'ObjLst.dart';
 
-class HiraganaLearning extends StatefulWidget {
+class HiraganaQuiz extends StatefulWidget {
+
+  static const routeName = '/hiraganaquiz';
+  
   @override
-  State<StatefulWidget> createState() => _HiraganaLearning();
+  State<StatefulWidget> createState() => _HiraganaQuiz();
 }
 
-class _HiraganaLearning extends State<HiraganaLearning> with TickerProviderStateMixin {
+class _HiraganaQuiz extends State<HiraganaQuiz> with TickerProviderStateMixin {
   AnimationController _controller;
   Tween<double> _tween = Tween(begin: 1.75, end: 2);
+
+  ObjPassQuiz importedargs;
+  int itemView = 0;
+  List<List<String>> lstquestion = new List<List<String>>();
+  String answer = "";
+  int marks = 0;
 
   @override
   void initState() {
@@ -23,11 +33,42 @@ dispose() {
   super.dispose();
 }
 
+
+void loadQuestion(){
+  List<List<String>> tmplstquestion = new List<List<String>>();
+    tmplstquestion.add(importedargs.normal[itemView]);
+    tmplstquestion.add(importedargs.random1[itemView]);
+    tmplstquestion.add(importedargs.random2[itemView]);
+    lstquestion = tmplstquestion.toList()..shuffle();
+    answer = importedargs.normal[itemView][0];
+}
+
+void nextQuestion(String a){
+  if(a == answer){
+    marks += 1;
+  }
+
+  if(itemView < importedargs.normal.length - 1){
+      itemView += 1;
+      print(itemView);
+      loadQuestion();
+    }else{
+      print("marks " + marks.toString());
+    }
+
+ 
+}
+
    @override
   Widget build(BuildContext context) {
+
+
+    final ObjPassQuiz args = ModalRoute.of(context).settings.arguments;
+    importedargs = args;
+    loadQuestion();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Learning hiragana"),
+        title: Text("Multiple choice"),
       ),
       body: Center(
 
@@ -76,29 +117,74 @@ dispose() {
                   child: Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                      "Learning hiragana",
+                      args.title,
                       style: TextStyle(fontSize: 30),
                     )
                   )
                   
                 ),
 
+                Container(
+                  //height: 20,
+                  margin: const EdgeInsets.only(top: 40.0),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(16.0),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                      "Question " + (itemView+1).toString(),
+                      style: TextStyle(fontSize: 30),
+                    )
+                  )
+                  
+                ),
 
-                Padding(
+                Container(
+                  //height: 20,
+                  margin: const EdgeInsets.only(top: 40.0),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(16.0),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                      args.normal[itemView][1],
+                      style: TextStyle(fontSize: 100),
+                    )
+                  )
+                  
+                ),
+
+                for(int i = 0; i < lstquestion.length;i++)
+
+                new Padding(
                       padding: EdgeInsets.all(16.0),
                       child: SizedBox(
                     //width: double.infinity / 2,
                     width: MediaQuery.of(context).size.width/ 2,
-                    height: 50.0,
+                    //height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/hiraganamutliplechoice');
+
+                        setState(() {
+
+                            nextQuestion(lstquestion[i][0]);
+                                                        //loadQuestion();
+                          });
+                        //Navigator.pushNamed(context, '/hiraganamutliplechoice');
                         //hiraganamutliplechoice
                       },
-                      child: Text("Multiple choice"),
+                      child: Text(
+                        lstquestion[i][0],
+                        style: TextStyle(fontSize: 100),
+                      )
                     ),
                   )
                   ),
+                  
                
               ],
               )   

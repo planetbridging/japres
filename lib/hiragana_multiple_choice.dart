@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ObjLst.dart';
 
 class HiraganaMultipleChoiceLearning extends StatefulWidget {
   @override
@@ -17,12 +18,18 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
     _controller.repeat(reverse: true);
   }
 
+  @override
+dispose() {
+  _controller.dispose(); // you need this
+  super.dispose();
+}
+
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(widget.title),
-      ),*/
+      appBar: AppBar(
+        title: Text("Hiragana multiple choice"),
+      ),
       body: Center(
 
 
@@ -85,6 +92,10 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",0,8);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
                         },
                         child: Text("1 to 9"),
                       ),
@@ -99,8 +110,12 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",10,19);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
                         },
-                        child: Text("10 to 19"),
+                        child: Text("9 to 18"),
                       ),
                     )
                   ),
@@ -113,6 +128,10 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",19,28);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
                         },
                         child: Text("20 to 29"),
                       ),
@@ -127,6 +146,10 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",29,38);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
                         },
                         child: Text("30 to 39"),
                       ),
@@ -141,6 +164,10 @@ class _HiraganaMultipleChoiceLearning extends State<HiraganaMultipleChoiceLearni
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",39,45);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
                         },
                         child: Text("40 to 46"),
                       ),

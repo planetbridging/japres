@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'ObjLst.dart';
 import 'main_menu.dart';
 import 'Hiragana.dart';
 import 'hiragana_multiple_choice.dart';
+import 'Hiragana_quiz.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -14,7 +14,7 @@ main() {
     title: 'Japres',
     initialRoute: '/',
     routes: {
-      //ExtractQuizArgumentsScreen.routeName: (context) => ExtractQuizArgumentsScreen(),
+      HiraganaQuiz.routeName: (context) => HiraganaQuiz(),
 
       '/': (context) => Avatar(),
       '/mainmenu': (context) => MainMenu(),
@@ -41,6 +41,12 @@ class _Avatar extends State<Avatar> with TickerProviderStateMixin {
     _controller = AnimationController(duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
   }
+
+  @override
+dispose() {
+  _controller.dispose(); // you need this
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {

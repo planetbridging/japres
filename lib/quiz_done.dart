@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MainMenu extends StatefulWidget {
+class QuizDone extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _MainMenu();
+  State<StatefulWidget> createState() => _QuizDone();
 }
 
-class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
+class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
   AnimationController _controller;
   Tween<double> _tween = Tween(begin: 1.75, end: 2);
 
@@ -26,9 +26,9 @@ dispose() {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(widget.title),
-      ),*/
+      appBar: AppBar(
+        title: Text("Learning hiragana"),
+      ),
       body: Center(
 
 
@@ -59,7 +59,7 @@ dispose() {
                       //child: CircleAvatar(backgroundImage: AssetImage("assets/imgs/Logo.png")),
                       child: Center(
                         child:Image(
-                          image: AssetImage("assets/imgs/blue_hair_girl.png"),
+                          image: AssetImage("assets/imgs/anime_glasses_boy.png"),
                         ),
                       )
                     ),
@@ -76,7 +76,7 @@ dispose() {
                   child: Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                      "Welcome, What would you like to learn to day?",
+                      "Learning hiragana",
                       style: TextStyle(fontSize: 30),
                     )
                   )
@@ -92,24 +92,10 @@ dispose() {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/hiraganalearning');
+                        Navigator.pushNamed(context, '/hiraganamutliplechoice');
+                        //hiraganamutliplechoice
                       },
-                      child: Text("Hiragana"),
-                    ),
-                  )
-                  ),
-
-                  Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: SizedBox(
-                    //width: double.infinity / 2,
-                    width: MediaQuery.of(context).size.width/ 2,
-                    height: 50.0,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        //Navigator.pop(context);
-                      },
-                      child: Text("Katakana"),
+                      child: Text("Multiple choice"),
                     ),
                   )
                   ),
