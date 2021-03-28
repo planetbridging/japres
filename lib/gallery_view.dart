@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+//import 'package:audioplayers/audioplayers.dart';
+//import 'package:audioplayers/audio_cache.dart';
 import 'ObjLst.dart';
 //import 'Hiragana_quiz.dart';
 //import 'katakana_quiz.dart';
@@ -17,6 +20,8 @@ class _GalleryView extends State<GalleryView> with TickerProviderStateMixin {
   bool showAnswer = false;
   String titleItem = "Hiragana";
   String statusItem = "1/46";
+
+  
 
   @override
   void initState() {
@@ -215,14 +220,17 @@ dispose() {
         )
       ],
       
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         tooltip: 'Sound',
         backgroundColor: Colors.red,
         child: Icon(IconData(58825, fontFamily: 'MaterialIcons')),
-        onPressed: () {
-          
+        onPressed: () async{
+          AudioPlayer advancedPlayer = AudioPlayer();
+          AudioCache audioCache = AudioCache();
+          await audioCache.play('assets/mp3/yo.mp3',
+                    mode: PlayerMode.LOW_LATENCY);
         },
-      ),
+      ),*/
     );
   }
 }
