@@ -9,6 +9,7 @@ import 'katakana_quiz.dart';
 import 'quiz_done.dart';
 import 'gallery.dart';
 import 'gallery_view.dart';
+import 'gallery_draw.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -34,6 +35,8 @@ main() {
 
       '/gallery': (context) => Gallery(),
       '/galleryview': (context) => GalleryView(),
+      '/gallerydraw': (context) => GalleryDraw(),
+      
 
       
       //Gallery

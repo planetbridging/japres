@@ -199,7 +199,9 @@ dispose() {
               Expanded(
                 child: FlatButton(
                   child: Text('Draw'),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/gallerydraw');
+                  },
                 ),
               ),
               Expanded(
