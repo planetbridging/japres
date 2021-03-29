@@ -79,21 +79,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                           "Welcome, What would you like to learn to day?",
                           style: TextStyle(fontSize: 30),
                         ))),
-                Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      //width: double.infinity / 2,
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 50.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          //Navigator.pushNamed(context, '/hiraganalearning');
-                          Navigator.pushNamed(
-                              context, '/hiraganamutliplechoice');
-                        },
-                        child: Text("Multiple choice"),
-                      ),
-                    )),
+                
 
                 /*Padding(
                       padding: EdgeInsets.all(16.0),
@@ -123,6 +109,38 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                           //hiraganamutliplechoice
                         },
                         child: Text("Training"),
+                      ),
+                    )),
+
+                    Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      //width: double.infinity / 2,
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Navigator.pushNamed(context, '/hiraganalearning');
+                          Navigator.pushNamed(
+                              context, '/hiraganamutliplechoice');
+                        },
+                        child: Text("Multiple choice"),
+                      ),
+                    )),
+
+
+                    Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      //width: double.infinity / 2,
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/matchall');
+                          //hiraganamutliplechoice
+                        },
+                        child: Text("Match all"),
                       ),
                     )),
               ],

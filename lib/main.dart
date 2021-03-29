@@ -11,6 +11,7 @@ import 'gallery.dart';
 //import 'gallery_view.dart';
 //import 'gallery_draw.dart';
 import 'load_cards.dart';
+import 'match_all.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -41,6 +42,9 @@ main() {
       '/training': (context) => PracticeWriting(),
       '/runtraining': (context) => FlipMainPage(),
       '/rundrawing': (context) => MyDrawingPage(),
+
+      '/matchall': (context) => MatchAll(),
+      //MatchAll
       //FlipMainPage
       //PracticeWriting
       
