@@ -43,7 +43,7 @@ dispose() {
     statusItem = (itemView + 1).toString() + "/" + (46).toString();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Gallery view"),
+        title: Text("Training view"),
       ),
       body: Container(
         decoration: new BoxDecoration(
@@ -55,7 +55,7 @@ dispose() {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-               Align(
+               /*Align(
           alignment: Alignment.topCenter,
           child: Row(
             children: [
@@ -93,7 +93,7 @@ dispose() {
                       ),
                     ),
             ],),
-          ),
+          ),*/
           
               GestureDetector(
   onTap: () {

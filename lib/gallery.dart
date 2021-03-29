@@ -46,11 +46,11 @@ dispose() {
   Widget build(BuildContext context) {
       return  Scaffold(
           appBar: AppBar(
-            title: Text("Gallery"),
+            title: Text("Training"),
           ),
           body: CustomScrollView(
             slivers: <Widget>[
-              SliverAppBar(
+              /*SliverAppBar(
                 title: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -64,7 +64,7 @@ dispose() {
                 ),
                 expandedHeight: 100,
                 //floating: true,
-              ),
+              ),*/
               SliverGrid.count(
                 crossAxisCount: 4,
                 children: [
@@ -104,7 +104,7 @@ dispose() {
                 ],
               ),
 
-              SliverAppBar(
+              /*SliverAppBar(
                 title: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -145,7 +145,7 @@ dispose() {
                   )
                   ),
                 ],
-              ),
+              ),*/
             ],
           ),
       );

@@ -47,7 +47,34 @@ var characters = [
   ["mo","も","モ"],
   ["yo","よ","ヨ"],
   ["ro","ろ","ロ"],
-  ["wo","を","ヲ"]
+  ["wo","を","ヲ"],//46
+
+  //Handakuon 5 = 51
+  ["pa","ぱ"],
+  ["pi","ぴ"],
+  ["pu","ぷ"],
+  ["pe","ぺ"],
+  ["po","ぽ"],
+
+  //dakuon 20 = 71
+  ["ga","が"],["gi","ぎ"],["gu","ぐ"],["ge","げ"],["go","ご"],
+  ["za","ざ"],["ji","ぢ"],["zu","づ"],["ze","ぜ"],["zo","ぞ"],
+  ["da","だ"],["ji","じ"],["zu","ず"],["de","で"],["do","ど"],
+  ["ba","ば"],["bi","び"],["bu","ぶ"],["be","べ"],["bo","ぼ"],
+
+  //yoon 33 = 104
+  ["kya","きゃ"],["kyu","きゅ"],["kyo","きょ"],
+  ["sha","しゃ"],["shu","しゅ"],["sho","しょ"],
+  ["cha","ちゃ"],["chu","ちゅ"],["cho","ちょ"],
+  ["nya","にゃ"],["nyu","にゅ"],["nyo","にょ"],
+  ["hya","ひゃ"],["hyu","ひゅ"],["hyo","ひょ"],
+  ["mya","みゃ"],["myu","みゅ"],["myo","みょ"],
+  ["rya","りゃ"],["ryu","りゅ"],["ryo","りょ"],
+  ["gya","ぎゃ"],["gyu","ぎゅ"],["gyo","ぎょ"],
+  ["ja","じゃ"],["ju","じゅ"],["jo","じょ"],    // is in twice two different characters
+  ["bya","びゃ"],["byu","びゅ"],["byo","びょ"],
+  ["pya","ぴゃ"],["pyu","ぴゅ"],["pyo","ぴょ"],
+  
 ];
 
 
@@ -96,7 +123,7 @@ ObjPassQuiz generateQuizHiragana(String title,int from,int to){
   List<List<String>> normal = getCharacterGroup(from,to);
   List<List<String>> random1= generateRandom(from,to,normal.length);
   List<List<String>> random2= generateRandom(from,to,normal.length);
-  String group = from.toString() + " to " + to.toString();
+  String group = (from + 1).toString() + " to " + (to + 1).toString();
   ObjPassQuiz tmp = new ObjPassQuiz(title,normal,random1,random2, group );
   return tmp;
 }

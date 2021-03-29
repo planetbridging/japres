@@ -54,7 +54,7 @@ void nextQuestion(String a){
       loadQuestion();
     }else{
       //print("marks " + marks.toString());
-      String results = marks.toString() + "/" + (importedargs.normal.length - 1).toString();
+      String results = marks.toString() + "/" + (importedargs.normal.length).toString();
       ObjQuizResults tmpobj = new ObjQuizResults("Hiragana " + importedargs.group,results);
       Navigator.pushNamed(context, '/quizdone',
         arguments: tmpobj
@@ -70,6 +70,7 @@ void nextQuestion(String a){
 
     final ObjPassQuiz args = ModalRoute.of(context).settings.arguments;
     importedargs = args;
+    //importedargs.group = importedargs.
     loadQuestion();
     return Scaffold(
       appBar: AppBar(

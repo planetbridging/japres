@@ -8,8 +8,9 @@ import 'Hiragana_quiz.dart';
 import 'katakana_quiz.dart';
 import 'quiz_done.dart';
 import 'gallery.dart';
-import 'gallery_view.dart';
-import 'gallery_draw.dart';
+//import 'gallery_view.dart';
+//import 'gallery_draw.dart';
+import 'load_cards.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -33,11 +34,15 @@ main() {
       '/katakanalearning': (context) => KatakanaLearning(),
       '/katakanamutliplechoice': (context) => KatakanaMultipleChoiceLearning(),
 
-      '/gallery': (context) => Gallery(),
-      '/galleryview': (context) => GalleryView(),
-      '/gallerydraw': (context) => GalleryDraw(),
+      //'/gallery': (context) => Gallery(),
+      //'/galleryview': (context) => GalleryView(),
+      //'/gallerydraw': (context) => GalleryDraw(),
       
-
+      '/training': (context) => PracticeWriting(),
+      '/runtraining': (context) => FlipMainPage(),
+      '/rundrawing': (context) => MyDrawingPage(),
+      //FlipMainPage
+      //PracticeWriting
       
       //Gallery
       //katakanaMultipleChoiceLearning

@@ -58,7 +58,7 @@ class _GalleryDraw extends State<GalleryDraw> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Writing'),
+        title: Text('Drawing'),
       ),
 
 
