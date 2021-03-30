@@ -32,6 +32,8 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+    double multiplier = 2;
     return Scaffold(
         /*appBar: AppBar(
         title: Text(widget.title),
@@ -55,20 +57,36 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   child: ScaleTransition(
                     scale: _tween.animate(CurvedAnimation(
                         parent: _controller, curve: Curves.elasticOut)),
-                    child: SizedBox(
+                    
+                    child: Container(
+                      width: 100,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: NetworkImage('assets/imgs/blue_hair_girl.png'),
+                        ),
+                      ),
+                    )
+                    
+                    /*child: Container(
                         height: 100,
                         width: 100,
                         //child: CircleAvatar(backgroundImage: AssetImage("assets/imgs/Logo.png")),
+                        
+                        
+                           
                         child: Center(
-                          child: Image(
-                            image: AssetImage("assets/imgs/blue_hair_girl.png"),
-                          ),
-                        )),
+                          child: FittedBox(
+                            child: Image.asset('assets/imgs/blue_hair_girl.png'),
+                            //fit: BoxFit.fill,
+                          )
+                        )),*/
                   ),
                 ),
                 Container(
                     //height: 20,
-                    margin: const EdgeInsets.only(top: 40.0),
+                    margin: const EdgeInsets.only(top: 20.0),
                     decoration: new BoxDecoration(
                       borderRadius: new BorderRadius.circular(16.0),
                       color: Colors.white,
@@ -77,7 +95,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                         padding: EdgeInsets.all(5.0),
                         child: Text(
                           "Welcome, What would you like to learn to day?",
-                          style: TextStyle(fontSize: 30),
+                          style: TextStyle(fontSize: multiplier * unitHeightValue,),
                         ))),
                 
 
@@ -141,6 +159,21 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                           //hiraganamutliplechoice
                         },
                         child: Text("Match all"),
+                      ),
+                    )),
+
+                    Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      //width: double.infinity / 2,
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/dragall');
+                          //hiraganamutliplechoice
+                        },
+                        child: Text("Drag all"),
                       ),
                     )),
               ],

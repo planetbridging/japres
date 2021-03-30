@@ -30,6 +30,8 @@ class _HiraganaMultipleChoiceLearning
   @override
   Widget build(BuildContext context) {
     print(characters.length);
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+    double multiplier = 2;
     return Scaffold(
         appBar: AppBar(
           title: Text("Hiragana multiple choice"),
@@ -58,16 +60,25 @@ class _HiraganaMultipleChoiceLearning
                             width: 100,
                             //child: CircleAvatar(backgroundImage: AssetImage("assets/imgs/Logo.png")),
                             child: Center(
-                              child: Image(
-                                image: AssetImage(
-                                    "assets/imgs/anime_glasses_boy.png"),
-                              ),
+
+                              child: Container(
+                                  width: 100,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.fitHeight,
+                                      image: NetworkImage('assets/imgs/anime_glasses_boy.png'),
+                                    ),
+                                  ),
+                                )
+                              ,
                             )),
                       ),
                     ),
                     Container(
                         //height: 20,
-                        margin: const EdgeInsets.only(top: 40.0),
+                        
+                        //margin: const EdgeInsets.only(top: 40.0),
                         decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.circular(16.0),
                           color: Colors.white,
@@ -76,9 +87,112 @@ class _HiraganaMultipleChoiceLearning
                             padding: EdgeInsets.all(5.0),
                             child: Text(
                               "Hiragana multiple choice",
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: multiplier * unitHeightValue,),
                             ))),
-                    for(int i = 0; i < 8; i++)
+                      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                        child: Row(children: [
+                        for(int i = 0; i < 3; i++)
+                          
+                             SizedBox(
+                            //width: double.infinity / 2,
+                            width: MediaQuery.of(context).size.width/ 3,
+                            height: 50.0,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                //Navigator.pop(context);
+                                ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",((i + 1) + (i*10))-1,(((i + 1) + (i*10))+10)-1);
+                                Navigator.pushNamed(context, '/hiraganaquiz',
+                                  arguments: tmpobj
+                                );
+                              },
+                              child: Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()),
+                            ),
+                          )
+                        
+                      ]),
+                      ),
+          ),
+          
+          Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                        child: Row(children: [
+                        for(int i = 3; i < 6; i++)
+                          
+                             SizedBox(
+                            //width: double.infinity / 2,
+                            width: MediaQuery.of(context).size.width/ 3,
+                            height: 50.0,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                //Navigator.pop(context);
+                                ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",((i + 1) + (i*10))-1,(((i + 1) + (i*10))+10)-1);
+                                Navigator.pushNamed(context, '/hiraganaquiz',
+                                  arguments: tmpobj
+                                );
+                              },
+                              child: Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()),
+                            ),
+                          )
+                        
+                      ]),
+                      ),
+          ),
+
+          Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                        child: Row(children: [
+                        for(int i = 6; i < 8; i++)
+                          
+                             SizedBox(
+                            //width: double.infinity / 2,
+                            width: MediaQuery.of(context).size.width/ 3,
+                            height: 50.0,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                //Navigator.pop(context);
+                                ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",((i + 1) + (i*10))-1,(((i + 1) + (i*10))+10)-1);
+                                Navigator.pushNamed(context, '/hiraganaquiz',
+                                  arguments: tmpobj
+                                );
+                              },
+                              child: Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()),
+                            ),
+                          ),
+
+                    
+                      SizedBox(
+                      //width: double.infinity / 2,
+                      width: MediaQuery.of(context).size.width/ 3,
+                      height: 50.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Navigator.pop(context);
+                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",88,characters.length-1);
+                          Navigator.pushNamed(context, '/hiraganaquiz',
+                            arguments: tmpobj
+                          );
+                        },
+                        child: Text("89 to 104"),
+                      ),
+                    )
+                 
+                        
+                      ]),
+                      ),
+          ),
+          
+          ]),
+                      
+                      
+                    /*for(int i = 0; i < 8; i++)
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: SizedBox(
@@ -96,26 +210,9 @@ class _HiraganaMultipleChoiceLearning
                         child: Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()),
                       ),
                     )
-                  ),
+                  ),*/
 
-                  Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: SizedBox(
-                      //width: double.infinity / 2,
-                      width: MediaQuery.of(context).size.width/ 2,
-                      height: 50.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          //Navigator.pop(context);
-                          ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",88,characters.length-1);
-                          Navigator.pushNamed(context, '/hiraganaquiz',
-                            arguments: tmpobj
-                          );
-                        },
-                        child: Text("89 to 104"),
-                      ),
-                    )
-                  ),
+                  
                     //fe
                     /*Padding(
                       padding: EdgeInsets.all(16.0),

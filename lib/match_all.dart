@@ -200,9 +200,16 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
         arguments: tmpobj
       );
         }
-        gridCharacters[secPressed[0]][secPressed[1]] =
+        if(itemsLoaded < duplicateChar.length){
+          gridCharacters[secPressed[0]][secPressed[1]] =
             duplicateChar[itemsLoaded][0];
-        gridCharacters[i][r] = duplicateChar[itemsLoaded][1];
+          gridCharacters[i][r] = duplicateChar[itemsLoaded][1];
+        }else{
+          gridCharacters[secPressed[0]][secPressed[1]] =
+            "";
+          gridCharacters[i][r] = "";
+        }
+        
         gridCharacters = gridCharacters.toList()..shuffle();
       }
     } else {

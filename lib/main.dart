@@ -12,6 +12,7 @@ import 'gallery.dart';
 //import 'gallery_draw.dart';
 import 'load_cards.dart';
 import 'match_all.dart';
+import 'drag_all.dart';
 /*void main() => runApp(
   MaterialApp(home: Avatar()));*/
 
@@ -44,7 +45,8 @@ main() {
       '/rundrawing': (context) => MyDrawingPage(),
 
       '/matchall': (context) => MatchAll(),
-      //MatchAll
+      '/dragall': (context) => DragAll(),
+      //DragAll
       //FlipMainPage
       //PracticeWriting
       
