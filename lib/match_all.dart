@@ -241,7 +241,7 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
         }
 
         gridCharacters = gridCharacters.toList()..shuffle();
-        //randomizeColors();
+        randomizeColors();
       }
     } else {
       gridPressed[i][r] = true;

@@ -81,7 +81,13 @@ class _MyDrawingState extends State<MyDrawingPage> {
       //color: Colors.blueGrey[50],
     );
     final String args = ModalRoute.of(context).settings.arguments;
-    urlFront = args;
+    if(args != null){
+      urlFront = args;
+    }
+    
+    if (urlFront == null) {
+      urlFront = "";
+    }
     if (urlFront != "") {
       isLoaded = true;
     }
