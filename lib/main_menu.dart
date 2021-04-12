@@ -116,7 +116,9 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/matchall');
+                    },
                     child: Text("Match all"),
                   ),
                 )),

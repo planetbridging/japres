@@ -82,7 +82,7 @@ class _MyDrawingState extends State<MyDrawingPage> {
     );
     final String args = ModalRoute.of(context).settings.arguments;
     urlFront = args;
-    if(urlFront != ""){
+    if (urlFront != "") {
       isLoaded = true;
     }
     return Scaffold(

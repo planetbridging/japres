@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'main_menu.dart';
 import 'training.dart';
 import 'drawing.dart';
+import 'match_all.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -12,7 +13,8 @@ void main() {
       '/': (context) => SplashScreen(),
       '/mainmenu': (context) => MainMenu(),
       '/training': (context) => TrainingPage(),
-      //MyDrawingPage
+      '/matchall': (context) => MatchAll(),
+      //MatchAll
     },
   ));
 }
