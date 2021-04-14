@@ -225,11 +225,11 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
         if (itemsLoaded >= characters.length) {
           //if (itemsLoaded >= 7) {
           print("ya done");
-          /*ObjQuizResults tmpobj = new ObjQuizResults(
+          ObjQuizResults tmpobj = new ObjQuizResults(
             "You matched " + itemsLoaded.toString() + "/104"," in " + counter.toString() + " seconds");
       Navigator.pushNamed(context, '/quizdone',
         arguments: tmpobj
-      );*/
+      );
         }
         if (itemsLoaded < duplicateChar.length) {
           gridCharacters[secPressed[0]][secPressed[1]] =
@@ -335,6 +335,53 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
                   ])),
             ],
           )),
+
+          persistentFooterButtons: [
+          Container(
+            width: MediaQuery.of(context).copyWith().size.width,
+            child: Row(
+              children: [
+                /*Expanded(
+                  child: FlatButton(
+                    child: Text('Main menu'),
+                    onPressed: () {
+                     Navigator.pushNamed(context, '/mainmenu');
+                    },
+                  ),
+                ),*/
+                /*Expanded(
+                  child: FlatButton(
+                    child: Text('Say'),
+                    onPressed: () {
+                      setState(() {
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/mp3/yo.mp3"),
+                          autoStart: true,
+                        );
+                      });
+                    },
+                  ),
+                ),*/
+                Expanded(
+                  child: FlatButton(
+                    child: Text('Finish early'),
+                    onPressed: () {
+                      setState(() {
+
+                         ObjQuizResults tmpobj = new ObjQuizResults(
+            "You matched " + itemsLoaded.toString() + "/104"," in " + counter.toString() + " seconds");
+      Navigator.pushNamed(context, '/quizdone',
+        arguments: tmpobj
+      );
+
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
+        ]
     );
   }
 }

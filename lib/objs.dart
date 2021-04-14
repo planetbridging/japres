@@ -129,3 +129,10 @@ var characters = [
   ["pya","ぴゃ"],["pyu","ぴゅ"],["pyo","ぴょ"],
   
 ];
+
+
+class ObjQuizResults{
+  final String title;
+  final String results;
+  ObjQuizResults(this.title,this.results);
+}

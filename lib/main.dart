@@ -3,6 +3,7 @@ import 'main_menu.dart';
 import 'training.dart';
 import 'drawing.dart';
 import 'match_all.dart';
+import 'quiz_done.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -10,6 +11,7 @@ void main() {
     initialRoute: '/',
     routes: {
       MyDrawingPage.routeName: (context) => MyDrawingPage(),
+      QuizDone.routeName: (context) => QuizDone(),
       '/': (context) => SplashScreen(),
       '/mainmenu': (context) => MainMenu(),
       '/training': (context) => TrainingPage(),
