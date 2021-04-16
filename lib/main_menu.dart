@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class MainMenu extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _MainMenu();
@@ -28,6 +29,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 2;
+    print(Uri.base);
     return Scaffold(
         body: Container(
       height: MediaQuery.of(context).size.height,
@@ -125,6 +127,47 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
           ),
         ],
       ),
-    ));
+    ),
+    
+    persistentFooterButtons: [
+          Container(
+            width: MediaQuery.of(context).copyWith().size.width,
+            child: Row(
+              children: [
+                Expanded(
+                  child: FlatButton(
+                    child: Text('Login'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                  ),
+                ),
+                /*Expanded(
+                  child: FlatButton(
+                    child: Text('Say'),
+                    onPressed: () {
+                      setState(() {
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/mp3/yo.mp3"),
+                          autoStart: true,
+                        );
+                      });
+                    },
+                  ),
+                ),*/
+                /*Expanded(
+                  child: FlatButton(
+                    child: Text('Share'),
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
+                )*/
+              ],
+            ),
+          )
+        ]
+    
+    );
   }
 }

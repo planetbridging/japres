@@ -174,7 +174,7 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
                   child: FlatButton(
                     child: Text('Main menu'),
                     onPressed: () {
-                     Navigator.pushNamed(context, '/mainmenu');
+                      Navigator.pushNamed(context, '/mainmenu');
                     },
                   ),
                 ),

@@ -4,6 +4,10 @@ import 'training.dart';
 import 'drawing.dart';
 import 'match_all.dart';
 import 'quiz_done.dart';
+import 'objs.dart';
+import 'login.dart';
+import 'showweb.dart';
+import 'objsWeb.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -12,10 +16,12 @@ void main() {
     routes: {
       MyDrawingPage.routeName: (context) => MyDrawingPage(),
       QuizDone.routeName: (context) => QuizDone(),
+      ShowWeb.routeName: (context) => ShowWeb(),
       '/': (context) => SplashScreen(),
       '/mainmenu': (context) => MainMenu(),
       '/training': (context) => TrainingPage(),
       '/matchall': (context) => MatchAll(),
+      '/login': (context) => Login(),
       //MatchAll
     },
   ));

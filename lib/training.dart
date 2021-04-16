@@ -8,6 +8,8 @@ class TrainingPage extends StatefulWidget {
   State<StatefulWidget> createState() => _TrainingPage();
 }
 
+
+
 class _TrainingPage extends State<TrainingPage> with TickerProviderStateMixin {
   AnimationController _controller;
   Tween<double> _tween = Tween(begin: 0.7, end: 0.9);
