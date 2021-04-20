@@ -8,6 +8,11 @@ import 'objs.dart';
 import 'login.dart';
 import 'showweb.dart';
 import 'objsWeb.dart';
+import 'HiraganaMultipleChoiceLearning.dart';
+import 'HiraganaQuiz.dart';
+
+
+objoFacebook oFacebook = null;
 
 void main() {
   runApp(MaterialApp(
@@ -17,11 +22,15 @@ void main() {
       MyDrawingPage.routeName: (context) => MyDrawingPage(),
       QuizDone.routeName: (context) => QuizDone(),
       ShowWeb.routeName: (context) => ShowWeb(),
-      '/': (context) => SplashScreen(),
+      Login.routeName: (context) => Login(),
+      HiraganaQuiz.routeName: (context) =>HiraganaQuiz(),
+  '/': (context) => SplashScreen(),
       '/mainmenu': (context) => MainMenu(),
       '/training': (context) => TrainingPage(),
       '/matchall': (context) => MatchAll(),
-      '/login': (context) => Login(),
+      '/showquiz': (context) => HiraganaMultipleChoiceLearning(),
+
+      //'/login': (context) => Login(),
       //MatchAll
     },
   ));

@@ -5,7 +5,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import 'objsWeb.dart';
-
+//https://pressback.space:8443/complete.html?#access_token=EAAGjnxwAnHABAGEWN2hyvATM3ce2uZAPA9qAi6W2UgGKAmfZAAMlHfJMd5ND5wmoj1CEZAOhXx4hjnfnjRb1VaeCWFktnvtMIPZB6iknRUkeBoTrbillc9TdmyVDaKOwGmk8wYYoGo6Fk7HFFX3a7QnnZC9xFhKVmTEFkZBnULIBWnXaR05vIinQ8yH33c5VkZD&data_access_expiration_time=1626674597&expires_in=5168598
 class ShowWeb extends StatefulWidget {
   static const routeName = '/showlogin';
   @override
@@ -17,7 +17,7 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
   Tween<double> _tween = Tween(begin: 0.7, end: 0.9);
   String tokenPassed = "";
   String loginPath = "";
-
+  String name = "Welcome";
   objoFacebook oFB;
 
   StreamSubscription<String> _onStateChanged;
@@ -39,16 +39,31 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
     //checkFacebookToken();
-    setState(() {});
+
 
     _onStateChanged =
         flutterWebviewPlugin.onUrlChanged.listen((String state) async {
-      if (state.contains("lotyouraddress")) {
+
+      if (state.contains("https://pressback.space:8443/complete.html")) {
         // do whatever you want
+        //print(flutterWebviewPlugin.evalJavascript('alert("hello");'));
         tokenPassed = state;
+        print("YAYYY"+tokenPassed+"wht");
+        oFB.processLink(tokenPassed);
+        var foundtoken = await oFB.checkToken();
+        if(foundtoken){
+          if(oFB.getAccount()){
+
+          }
+
+        }
+
+        print("token:::" + oFB.token);
       }
+      print("YAYYY"+tokenPassed+"wht");
       print(state);
     });
+    oFB = new objoFacebook("https://pressback.space:8443/complete.html");
   }
 
   @override
@@ -72,11 +87,9 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
     }
     if (loginType != "") {
       if (loginType == "facebook") {
-        oFB = new objoFacebook("https://lotyouraddress.com/");
+
         loginPath = oFB.url;
       }
-    } else {
-      loginPath = "https://google.com";
     }
     return //Scaffold( body:
 

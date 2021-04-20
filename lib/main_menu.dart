@@ -13,7 +13,6 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
         duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
@@ -104,7 +103,9 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/showquiz');
+                    },
                     child: Text("Multiple choice"),
                   ),
                 )),
@@ -125,11 +126,27 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   ),
                 )),
           ),
+          Flexible(
+            flex: 1,
+            child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: SizedBox(
+                  //width: double.infinity / 2,
+                  width: MediaQuery.of(context).size.width,
+                  height: 50.0,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: Text("Leaderboards"),
+                  ),
+                )),
+          ),
         ],
       ),
     ),
     
-    persistentFooterButtons: [
+    /*persistentFooterButtons: [
           Container(
             width: MediaQuery.of(context).copyWith().size.width,
             child: Row(
@@ -166,7 +183,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
               ],
             ),
           )
-        ]
+        ]*/
     
     );
   }
