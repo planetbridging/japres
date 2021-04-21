@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-
+import 'loadUser.dart';
 import 'objsWeb.dart';
 //https://pressback.space:8443/complete.html?#access_token=EAAGjnxwAnHABAGEWN2hyvATM3ce2uZAPA9qAi6W2UgGKAmfZAAMlHfJMd5ND5wmoj1CEZAOhXx4hjnfnjRb1VaeCWFktnvtMIPZB6iknRUkeBoTrbillc9TdmyVDaKOwGmk8wYYoGo6Fk7HFFX3a7QnnZC9xFhKVmTEFkZBnULIBWnXaR05vIinQ8yH33c5VkZD&data_access_expiration_time=1626674597&expires_in=5168598
 class ShowWeb extends StatefulWidget {
@@ -45,17 +45,24 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
         flutterWebviewPlugin.onUrlChanged.listen((String state) async {
 
       if (state.contains("https://pressback.space:8443/complete.html")) {
-        // do whatever you want
-        //print(flutterWebviewPlugin.evalJavascript('alert("hello");'));
         tokenPassed = state;
-        print("YAYYY"+tokenPassed+"wht");
-        oFB.processLink(tokenPassed);
-        var foundtoken = await oFB.checkToken();
-        if(foundtoken){
-          if(oFB.getAccount()){
+        //print("YAYYY"+tokenPassed+"wht");
 
+
+        try{
+          oFB.processLink(tokenPassed);
+          var foundtoken = await oFB.checkToken();
+          if(foundtoken){
+            var foundaccount = await oFB.getAccount();
+            if(foundaccount){
+              setSavedUserData(oFB.getCompressed());
+              flutterWebviewPlugin.dispose();
+              flutterWebviewPlugin.close();
+              Navigator.pushNamed(context, '/login');
+            }
           }
-
+        }catch(e){
+          print("unable to save login");
         }
 
         print("token:::" + oFB.token);
@@ -87,7 +94,6 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
     }
     if (loginType != "") {
       if (loginType == "facebook") {
-
         loginPath = oFB.url;
       }
     }

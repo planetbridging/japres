@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'loadUser.dart';
 
 class MainMenu extends StatefulWidget {
   @override
@@ -16,6 +16,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
     _controller = AnimationController(
         duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
+
   }
 
   @override
@@ -84,7 +85,9 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      /*var d = await getSavedUserData();
+                      print("userdata:::" + d);*/
                       //Navigator.pushNamed(context, '/training');
                       Navigator.pushNamed(context, '/training');
                       //runtraining

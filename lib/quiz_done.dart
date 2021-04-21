@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'objs.dart';
+import 'package:share/share.dart';
 
 class QuizDone extends StatefulWidget {
   static const routeName = '/quizdone';
@@ -14,6 +15,15 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
 
   String title = "hiragana 0 to 0";
   String results = "0/0";
+
+
+  _onShare(BuildContext context) async {
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    String txtshare = title + " " + results + " check out our app on https://pressback.space:8443";
+    await Share.share(txtshare,
+        subject: txtshare,
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
 
   @override
   void initState() {
@@ -195,7 +205,7 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
                   child: FlatButton(
                     child: Text('Share'),
                     onPressed: () {
-                      setState(() {});
+                      _onShare(context);
                     },
                   ),
                 )

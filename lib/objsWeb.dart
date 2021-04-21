@@ -21,20 +21,29 @@ class objoAccount {
     this.email = _e;
     this.birthday = _b;
   }
+
+  convertNull(String i){
+    if(i == null){
+      return "";
+    }else{
+      return i;
+    }
+  }
   compressToSend() {
-    return (
-        this.id +
-            ":::" +
-            this.first_name +
-            ":::" +
-            this.last_name +
-            ":::" +
-            this.email +
-            ":::" +
-            this.birthday +
-            ":::" +
-            this.saveToken
-    );
+    String r = convertNull(this.id) +
+        ":::" +
+        convertNull(this.first_name) +
+        ":::" +
+        convertNull(this.last_name) +
+        ":::" +
+        convertNull(this.email) +
+        ":::" +
+        convertNull(this.birthday) +
+        ":::" +
+        convertNull(this.saveToken)
+    ;
+    return r;
+
   }
 }
 class objoLogin {
@@ -125,6 +134,10 @@ class objoFacebook extends objoLogin {
         "&response_type=token";
   }
 
+  getCompressed(){
+    return this.oAccount.compressToSend();
+  }
+
   checkToken() async {
     final _authority = "graph.facebook.com";
     final _path = "/me";
@@ -137,6 +150,7 @@ class objoFacebook extends objoLogin {
       return true;
       //print(this.oAccount.id);
     }catch(e){
+      print(e);
       print("unable to capture id");
     }
     //print(data.body);
@@ -161,11 +175,11 @@ class objoFacebook extends objoLogin {
       } catch (e) {
         print("failed to grab fb pic");
       }
-
+      this.oAccount.saveToken = this.token;
       return true;
       //print(this.oAccount.id);
     }catch(e){
-      print("unable to capture id");
+      print("unable to capture account");
     }
     //print(data.body);
     return false;

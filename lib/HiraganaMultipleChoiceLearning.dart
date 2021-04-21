@@ -77,6 +77,9 @@ class _HiraganaMultipleChoiceLearning
     double multiplier = 2;
     print(Uri.base);
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Quiz"),
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -95,7 +98,7 @@ class _HiraganaMultipleChoiceLearning
                         scale: _tween.animate(CurvedAnimation(
                             parent: _controller, curve: Curves.elasticOut)),
                         child: Image(
-                          image: AssetImage("assets/imgs/blue_hair_girl.png"),
+                          image: AssetImage("assets/imgs/anime_glasses_boy.png"),
                         )),
                   ),
                   Padding(
@@ -115,7 +118,7 @@ class _HiraganaMultipleChoiceLearning
                         child: Padding(
                             padding: EdgeInsets.all(16.0),
                             child: Text(
-                              "Welcome, What would you like to learn to day?",
+                              "Hiragana multiple choice",
                               style: TextStyle(
                                 fontSize: multiplier * unitHeightValue,
                               ),

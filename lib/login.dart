@@ -7,7 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
+import 'loadUser.dart';
 
 
 
@@ -37,6 +37,45 @@ class _Login extends State<Login> with TickerProviderStateMixin {
   AnimationController _controller;
   Tween<double> _tween = Tween(begin: 0.7, end: 0.9);
   String tokenPassed = "";
+  String leaderTitle = "Welcome to leaderboards";
+  String savedData = "";
+  List<String> saveArr = ["","","","","",""];
+  bool saveLoaded = false;
+  bool notEmpty = false;
+  bool notLoggedIn = true;
+  loadSaveData() async {
+    if(!saveLoaded){
+      savedData = await getSavedUserData();
+      if(savedData != ""){
+        var sSplit = savedData.split(":::");
+        //id,fn,ln,em,bd,tk
+        for(int i = 0; i < sSplit.length;i++){
+          saveArr[i] = sSplit[i];
+        }
+        notEmpty = true;
+        notLoggedIn = false;
+        setState(() {
+          leaderTitle += ", " + saveArr[1] + " " + saveArr[2];
+        });
+
+      }
+
+      saveLoaded = true;
+    }
+
+  }
+
+  logUserOut(){
+    notLoggedIn = true;
+    setState(() {
+      setSavedUserData("");
+
+      saveLoaded = false;
+      notEmpty = false;
+      leaderTitle = "Welcome to leaderboards";
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +83,8 @@ class _Login extends State<Login> with TickerProviderStateMixin {
     _controller = AnimationController(
         duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
+
+    loadSaveData();
     //checkFacebookToken();
   }
 
@@ -79,7 +120,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 2;
-
+    //loadSaveData();
     return Scaffold(
         body: Container(
           height: MediaQuery.of(context).size.height,
@@ -120,7 +161,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
                           child: Padding(
                               padding: EdgeInsets.all(16.0),
                               child: Text(
-                                "Choose your platform" + tokenPassed,
+                                leaderTitle,
                                 style: TextStyle(
                                   fontSize: multiplier * unitHeightValue,
                                 ),
@@ -158,14 +199,29 @@ class _Login extends State<Login> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                Expanded(
-                  child: FlatButton(
-                    child: Text('Login'),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/showlogin',arguments: "facebook");
-                    },
+
+                !notEmpty ? Expanded(
+                    child: FlatButton(
+                      child: Text('Login'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/showlogin',arguments: "facebook");
+                      },
+                    ),
+                  ):
+
+
+
+                 Expanded(
+                    child: FlatButton(
+                      child: Text('Logout'),
+                      onPressed: () {
+                        //Navigator.pushNamed(context, '/showlogin',arguments: "facebook");
+                        logUserOut();
+                      },
+                    ),
                   ),
-                ),
+
+
               ],
             ),
           )

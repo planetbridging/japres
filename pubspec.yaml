@@ -31,6 +31,8 @@ dependencies:
   oauth2: ^2.0.0
   webview_flutter: ^2.0.4
   flutter_webview_plugin: ^0.3.11
+  share: ^2.0.1
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:
