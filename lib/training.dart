@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'objs.dart';
+import 'audioPlay.dart';
 
 class TrainingPage extends StatefulWidget {
   @override
@@ -129,8 +130,29 @@ class _TrainingPage extends State<TrainingPage> with TickerProviderStateMixin {
                       setState(() {
                         if (selectedDeck >= 1) {
                           selectedDeck -= 1;
+                          isFront = true;
                         }
                       });
+                    },
+                  ),
+                ),
+
+                Expanded(
+                  child: FlatButton(
+                    child: Text('Play'),
+                    onPressed: () async {
+                      /*if (selectedDeck < deck.objlstcards.length - 1) {
+                        selectedDeck += 1;
+                        isFront = true;
+                      }*/
+                      String path = deck.objlstcards[selectedDeck].side1;
+                      String pro = path.split("_")[2];
+                      String uppro = pro
+                          .split(' ')
+                          .map((word) => word[0].toUpperCase() + word.substring(1))
+                          .join(' ');
+                      await playLocal(uppro);
+                      //print(uppro);
                     },
                   ),
                 ),
