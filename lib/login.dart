@@ -63,6 +63,13 @@ class _Login extends State<Login> with TickerProviderStateMixin {
   bool notEmpty = false;
   bool notLoggedIn = true;
   List<ObjRank> lstRanks = new List<ObjRank>();
+  List<ObjRank> lstUserRanks = new List<ObjRank>();
+
+  loadCurrentUser() async {
+    await loadSaveData();
+    setCurrentUser(saveArr[0]);
+  }
+
   loadSaveData() async {
     if(!saveLoaded){
       savedData = await getSavedUserData();
@@ -77,12 +84,9 @@ class _Login extends State<Login> with TickerProviderStateMixin {
         setState(() {
           leaderTitle += ", " + saveArr[1] + " " + saveArr[2];
         });
-
       }
-
       saveLoaded = true;
     }
-
   }
 
   logUserOut(){
@@ -93,6 +97,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
       saveLoaded = false;
       notEmpty = false;
       leaderTitle = "Welcome to leaderboards";
+      lstUserRanks.clear();
     });
   }
 
@@ -114,6 +119,31 @@ class _Login extends State<Login> with TickerProviderStateMixin {
     }
   }
 
+  setCurrentUser(String id) async{
+    lstUserRanks.clear();
+    final _authority = "pressback.space:8443";
+    final _path = "/getrank";
+    var queryParameters = {
+      'id': id
+    };
+    var d = await getDynData(_authority,_path,queryParameters);
+
+    if(d.body.contains("Not found")){
+      print("couldn't find id");
+    }else{
+      var j = jsonDecode(d.body);
+      try{
+        ObjRank o = new ObjRank(j[0], j[1], j[2], j[3]);
+        setState(() {
+          lstUserRanks.add(o);
+        });
+      }catch (e){
+        print("unable to get leaderboards");
+      }
+    }
+    /**/
+  }
+
   @override
   void initState() {
     super.initState();
@@ -124,7 +154,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 5000), vsync: this);
     _controller.repeat(reverse: true);
 
-    loadSaveData();
+    loadCurrentUser();
     //checkFacebookToken();
   }
 
@@ -204,7 +234,51 @@ class _Login extends State<Login> with TickerProviderStateMixin {
                   ])),
 
               Flexible(
-                flex: 2,
+                  flex: 1,
+                  child: ListView(
+                    children: [
+                      if(lstUserRanks.length > 0)
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: generateText("Name"),
+                          ),
+                          Expanded(
+                            child: generateText("Seconds"),
+                          ),
+                          Expanded(
+                            child: generateText("Score"),
+                          ),
+                          Expanded(
+                            child: generateText("Points"),
+                          ),
+
+                        ],
+                      ),
+
+                      for(var i =0; i< lstUserRanks.length;i++)
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: generateText(lstUserRanks[i].name),
+                            ),
+                            Expanded(
+                              child: generateText(lstUserRanks[i].seconds.toString()),
+                            ),
+                            Expanded(
+                              child: generateText(lstUserRanks[i].score.toString()),
+                            ),
+                            Expanded(
+                              child: generateText(lstUserRanks[i].points.toString()),
+                            ),
+                          ],
+                        ),
+
+                    ],
+                  )
+              ),
+              Flexible(
+                flex: 3,
                 child: ListView(
                   children: [
                     Row(
@@ -263,6 +337,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
                     child: Text('Main menu'),
                     onPressed: () {
                       Navigator.pushNamed(context, '/mainmenu');
+                      //setCurrentUser("123995826417993");
                     },
                   ),
                 ),
