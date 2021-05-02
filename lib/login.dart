@@ -3,12 +3,25 @@ import 'dart:convert';
 /*import 'dart:html';
 import 'dart:js';*/
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'loadUser.dart';
 
+class ObjRank {
+  String name = "";
+  int seconds = 0;
+  int score = 0;
+  int points = 0;
+  ObjRank(String n, int s, int o, int p) {
+    this.name = n;
+    this.seconds = s;
+    this.score = o;
+    this.points = p;
+  }
+}
 
 
 Timer interval(Duration duration, func) {
@@ -25,7 +38,13 @@ Timer interval(Duration duration, func) {
 
 var facebookToken = "";
 
+Future<http.Response> getDynData(String link, String path,var parms){
+  return http.get(Uri.https(link, path,parms));
+}
 
+Future<http.Response> fetchBoard() {
+  return http.get(Uri.https('pressback.space:8443', '/leadboards'));
+}
 
 class Login extends StatefulWidget {
   static const routeName = '/login';
@@ -43,6 +62,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
   bool saveLoaded = false;
   bool notEmpty = false;
   bool notLoggedIn = true;
+  List<ObjRank> lstRanks = new List<ObjRank>();
   loadSaveData() async {
     if(!saveLoaded){
       savedData = await getSavedUserData();
@@ -76,9 +96,29 @@ class _Login extends State<Login> with TickerProviderStateMixin {
     });
   }
 
+
+  setLeadboards() async {
+    var d = await fetchBoard();
+
+    var j = jsonDecode(d.body);
+    try{
+      for(var v in j){
+        ObjRank o = new ObjRank(v[0], v[1], v[2], v[3]);
+        setState(() {
+          lstRanks.add(o);
+        });
+
+      }
+    }catch (e){
+      print("unable to get leaderboards");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    setLeadboards();
 
     _controller = AnimationController(
         duration: const Duration(milliseconds: 5000), vsync: this);
@@ -94,27 +134,21 @@ class _Login extends State<Login> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  /*loginFacebook() async {
-    context.callMethod(
-        'loginUniversal', ["facebook", Uri.base]);
-    interval(new Duration(seconds: 1), (timer) {
-      //print(i++);
-      var getFacebook = context.callMethod('getFacebook');
-      if (getFacebook != null) {
-        print(getFacebook);
-        tokenPassed = getFacebook;
-        timer.cancel();
-      }
-      //if (i > 5) timer.cancel();
-    });
+  generateText(String txt){
+    var c = Container(
+      //height: 20,
+      //margin: const EdgeInsets.only(top: 20.0),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5.0),
+          color: Colors.white,
+        ),
+        child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Text(
+              txt,
+            )));
+    return c;
   }
-
-  checkFacebookToken() {
-    var getFacebook = context.callMethod('getFacebook');
-    if(getFacebook != null){
-      tokenPassed = getFacebook;
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -173,12 +207,45 @@ class _Login extends State<Login> with TickerProviderStateMixin {
                 flex: 2,
                 child: ListView(
                   children: [
-                    for(var i =0; i< 10;i++)
-                      FlatButton(
-                        child: Text('Main menu'),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/mainmenu');
-                        },
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: generateText("#"),
+                        ),
+                        Expanded(
+                          child: generateText("Name"),
+                        ),
+                        Expanded(
+                          child: generateText("Seconds"),
+                        ),
+                        Expanded(
+                          child: generateText("Score"),
+                        ),
+                        Expanded(
+                          child: generateText("Points"),
+                        ),
+
+                      ],
+                    ),
+                    for(var i =0; i< lstRanks.length;i++)
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: generateText((i+1).toString()),
+                          ),
+                          Expanded(
+                            child: generateText(lstRanks[i].name),
+                          ),
+                          Expanded(
+                            child: generateText(lstRanks[i].seconds.toString()),
+                          ),
+                          Expanded(
+                            child: generateText(lstRanks[i].score.toString()),
+                          ),
+                          Expanded(
+                            child: generateText(lstRanks[i].points.toString()),
+                          ),
+                        ],
                       ),
                   ],
                 )
