@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'objs.dart';
 import 'package:share/share.dart';
+import 'loadUser.dart';
 
 class QuizDone extends StatefulWidget {
   static const routeName = '/quizdone';
@@ -16,6 +18,9 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
   String title = "hiragana 0 to 0";
   String results = "0/0";
 
+  Future<http.Response> getDynData(String link, String path,var parms){
+    return http.get(Uri.https(link, path,parms));
+  }
 
   _onShare(BuildContext context) async {
     final RenderBox box = context.findRenderObject() as RenderBox;
@@ -40,6 +45,35 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> uploadResultes() async {
+    try{
+      if(title.contains("matched")){
+        var score = title.split("matched")[1].split("/")[0];
+        var sec = results.split(" ")[2];
+        print(sec);
+        var info = await getSavedUserData();
+        if(info.contains(":")){
+          print("can upload");
+          var id = info.split(":::")[0];
+          final _authority = "pressback.space:8443";
+          final _path = "/setrank";
+          var queryParameters = {
+            'id': id,
+            'seconds': sec,
+            'score': score
+          };
+          var d = await getDynData(_authority,_path,queryParameters);
+          print("---------" +d.body+"---------");
+        }else{
+          print("not logged in");
+        }
+      }
+    }catch(e){
+      print("failed to upload results");
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final ObjQuizResults args = ModalRoute.of(context).settings.arguments;
@@ -50,7 +84,7 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
       title = args.title;
       results = args.results;
     }
-
+    uploadResultes();
     return Scaffold(
         body: Container(
           height: MediaQuery.of(context).size.height,
