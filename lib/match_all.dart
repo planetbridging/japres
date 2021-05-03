@@ -170,7 +170,7 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
     List<int> tmplstshuffle = tmplst.toList()..shuffle();
 
     //pushIntoGrid(tmplstshuffle[0], duplicateChar[itemsLoaded][0]);
-    for (int i = 0; i < 12; i += 2) {
+    for (int i = 0; i < 11; i += 2) {
       print(
           tmplstshuffle[i].toString() + "," + tmplstshuffle[i + 1].toString());
       pushIntoGrid(tmplstshuffle[i], duplicateChar[itemsLoaded][0]);
@@ -221,16 +221,8 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
       gridPressed[i][r] = false;
       gridPressed[secPressed[0]][secPressed[1]] = false;
       if (found) {
-        itemsLoaded += 1;
-        if (itemsLoaded >= characters.length) {
-          //if (itemsLoaded >= 7) {
-          print("ya done");
-          ObjQuizResults tmpobj = new ObjQuizResults(
-            "You matched " + itemsLoaded.toString() + "/104"," in " + counter.toString() + " seconds");
-      Navigator.pushNamed(context, '/quizdone',
-        arguments: tmpobj
-      );
-        }
+
+
         if (itemsLoaded < duplicateChar.length) {
           gridCharacters[secPressed[0]][secPressed[1]] =
               duplicateChar[itemsLoaded][0];
@@ -242,6 +234,17 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
 
         gridCharacters = gridCharacters.toList()..shuffle();
         randomizeColors();
+        itemsLoaded += 1;
+        print( duplicateChar.length);
+        if (itemsLoaded >= duplicateChar.length + 6) {
+          //if (itemsLoaded >= 7) {
+          print("ya done");
+          ObjQuizResults tmpobj = new ObjQuizResults(
+            "You matched " + (itemsLoaded-6).toString() + "/104"," in " + counter.toString() + " seconds");
+      Navigator.pushNamed(context, '/quizdone',
+        arguments: tmpobj
+      );
+        }
       }
     } else {
       gridPressed[i][r] = true;
@@ -291,9 +294,9 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
                   child: Column(children: [
                     Center(
                       child: Text(
-                        itemsLoaded.toString() +
+                      (itemsLoaded-6).toString() +
                             "/" +
-                            characters.length.toString(),
+                            duplicateChar.length.toString(),
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                     ),
@@ -369,7 +372,7 @@ class _MatchAll extends State<MatchAll> with TickerProviderStateMixin {
                       setState(() {
 
                          ObjQuizResults tmpobj = new ObjQuizResults(
-            "You matched " + itemsLoaded.toString() + "/104"," in " + counter.toString() + " seconds");
+            "You matched " + (itemsLoaded-6).toString() + "/" + duplicateChar.length.toString()," in " + counter.toString() + " seconds");
       Navigator.pushNamed(context, '/quizdone',
         arguments: tmpobj
       );
