@@ -10,6 +10,7 @@ import 'showweb.dart';
 import 'objsWeb.dart';
 import 'HiraganaMultipleChoiceLearning.dart';
 import 'HiraganaQuiz.dart';
+import 'minigame.dart';
 
 objoFacebook oFacebook = null;
 
@@ -28,6 +29,9 @@ void main() {
       '/training': (context) => TrainingPage(),
       '/matchall': (context) => MatchAll(),
       '/showquiz': (context) => HiraganaMultipleChoiceLearning(),
+      '/p5game': (context) => MiniGame(),
+
+      //p5game
 
       //'/login': (context) => Login(),
       //MatchAll

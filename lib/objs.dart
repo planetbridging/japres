@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:ui';
+
 class ObjTwoSideCard {
   String side1 = "";
   String side2 = "";
@@ -146,6 +149,14 @@ class ObjPassQuiz{
   ObjPassQuiz(this.title,this.normal,this.random1,this.random2,this.group);
 }
 
+class ObjColorAnswers{
+  final String name;
+  final Color color;
+  double X;
+  double Y;
+  ObjColorAnswers(this.name,this.color,this.X,this.Y);
+}
+
 List<List<String>> getCharacterGroup(int from,int to){
   List<List<String>> lst = new List<List<String>>();
   for(int i = from;i <= to;i++){
@@ -180,3 +191,4 @@ ObjPassQuiz generateQuizHiragana(String title,int from,int to){
   ObjPassQuiz tmp = new ObjPassQuiz(title,normal,random1,random2, group );
   return tmp;
 }
+

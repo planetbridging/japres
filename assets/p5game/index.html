@@ -1,0 +1,241 @@
+<html><head>
+    <script type="text/javascript" src="p5.min.js"></script>
+    <style>
+      html, body {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        background:white;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <!-- <script src='https://cdn.rawgit.com/processing/p5.accessibility/v0.1.1/dist/p5-accessibility.js'></script> -->
+
+
+<script type="text/javascript">
+// for red, green, and blue color values
+/*let r, g, b;
+
+function setup() {
+  createCanvas(720, 400);
+  // Pick colors randomly
+  r = random(255);
+  g = random(255);
+  b = random(255);
+}
+
+function draw() {
+  background(127);
+  // Draw a circle
+  strokeWeight(2);
+  stroke(r, g, b);
+  fill(r, g, b, 127);
+  ellipse(360, 200, 200, 200);
+}
+
+// When the user clicks the mouse
+function mousePressed() {
+  // Check if mouse is inside the circle
+  let d = dist(mouseX, mouseY, 360, 200);
+  if (d < 100) {
+    // Pick new random color values
+    r = random(255);
+    g = random(255);
+    b = random(255);
+  }
+}
+
+new p5();
+
+*/
+
+var characters = [
+  ["a","あ","ア"],
+  ["ka","か","カ"],
+  ["sa","さ","サ"],
+  ["ta","た","タ"],
+  ["na","な","ナ"],
+  ["ha","は","ハ"],
+  ["ma","ま","マ"],
+  ["ya","や","ヤ"],
+  ["ra","ら","ラ"],
+  ["wa","は","ハ"],
+  ["n","ん","ン"],
+  ["i","い","イ"],
+  ["ki","き","キ"],
+  ["shi","し","シ"],
+  ["chi","ち","チ"],
+  ["ni","に","ニ"],
+  ["hi","ひ","ヒ"],
+  ["mi","み","ミ"],
+  ["ri","り","リ"],
+  ["u","う","ウ"],
+  ["ku","く","ク"],
+  ["su","す","vス"],
+  ["tsu","つ","ツ"],
+  ["nu","ぬ","ヌ"],
+  ["fu","ふ","フ"],
+  ["mu","む","ム"],
+  ["yu","ゆ","ユ"],
+  ["ru","る","ル"],
+  ["o","お","オ"],
+  ["e","え","エ"],
+  ["ke","け","ケ"],
+  ["se","せ","セ"],
+  ["te","て","テ"],
+  ["ne","ね","ネ"],
+  ["he","へ","ヘ"],
+  ["me","め","メ"],
+  ["re","れ","レ"],
+  ["ko","こ","コ"],
+  ["so","そ","ソ"],
+  ["to","と","ト"],
+  ["no","の","ノ"],
+  ["ho","ほ","ホ"],
+  ["mo","も","モ"],
+  ["yo","よ","ヨ"],
+  ["ro","ろ","ロ"],
+  ["wo","を","ヲ"],//46
+
+  //Handakuon 5 = 51
+  ["pa","ぱ"],
+  ["pi","ぴ"],
+  ["pu","ぷ"],
+  ["pe","ぺ"],
+  ["po","ぽ"],
+
+  //dakuon 20 = 71
+  ["ga","が"],["gi","ぎ"],["gu","ぐ"],["ge","げ"],["go","ご"],
+  ["za","ざ"],["ji","ぢ"],["zu","づ"],["ze","ぜ"],["zo","ぞ"],
+  ["da","だ"],["ji","じ"],["zu","ず"],["de","で"],["do","ど"],
+  ["ba","ば"],["bi","び"],["bu","ぶ"],["be","べ"],["bo","ぼ"],
+
+  //yoon 33 = 104
+  ["kya","きゃ"],["kyu","きゅ"],["kyo","きょ"],
+  ["sha","しゃ"],["shu","しゅ"],["sho","しょ"],
+  ["cha","ちゃ"],["chu","ちゅ"],["cho","ちょ"],
+  ["nya","にゃ"],["nyu","にゅ"],["nyo","にょ"],
+  ["hya","ひゃ"],["hyu","ひゅ"],["hyo","ひょ"],
+  ["mya","みゃ"],["myu","みゅ"],["myo","みょ"],
+  ["rya","りゃ"],["ryu","りゅ"],["ryo","りょ"],
+  ["gya","ぎゃ"],["gyu","ぎゅ"],["gyo","ぎょ"],
+  ["ja","じゃ"],["ju","じゅ"],["jo","じょ"],    // is in twice two different characters
+  ["bya","びゃ"],["byu","びゅ"],["byo","びょ"],
+  ["pya","ぴゃ"],["pyu","ぴゅ"],["pyo","ぴょ"],
+
+];
+
+
+let numBalls = 104;
+let spring = 0.05;
+let gravity = 0.03;
+let friction = -0.9;
+let balls = [];
+let letters = [];
+let letter = "he";
+
+function setup() {
+  createCanvas(document.body.clientWidth, document.body.clientHeight);
+  /*for (let i = 0; i < numBalls; i++) {
+    balls[i] = new Ball(
+      random(width),
+      random(height),
+      random(70, 70),
+      i,
+      balls
+    );
+  }*/
+
+  for(var i = 0; i < characters.length;i++){
+    letters.push(characters[i]);
+    balls[i] = new Ball(
+      random(width),
+      random(height),
+      random((document.body.clientWidth)/10, (document.body.clientWidth)/10),
+      i,
+      balls
+    );
+  }
+
+  noStroke();
+  fill(255, 204);
+}
+
+function draw() {
+  background(0);
+  balls.forEach(ball => {
+    ball.collide();
+    ball.move();
+    ball.display();
+  });
+
+
+    for(var i = 0; i < characters.length;i++){
+        textSize(20);
+        text(letters[i][0], balls[i].x, balls[i].y);
+    }
+}
+
+class Ball {
+  constructor(xin, yin, din, idin, oin) {
+    this.x = xin;
+    this.y = yin;
+    this.vx = 0;
+    this.vy = 0;
+    this.diameter = din;
+    this.id = idin;
+    this.others = oin;
+  }
+
+  collide() {
+    for (let i = this.id + 1; i < numBalls; i++) {
+      // console.log(others[i]);
+      let dx = this.others[i].x - this.x;
+      let dy = this.others[i].y - this.y;
+      let distance = sqrt(dx * dx + dy * dy);
+      let minDist = this.others[i].diameter / 2 + this.diameter / 2;
+      //   console.log(distance);
+      //console.log(minDist);
+      if (distance < minDist) {
+        //console.log("2");
+        let angle = atan2(dy, dx);
+        let targetX = this.x + cos(angle) * minDist;
+        let targetY = this.y + sin(angle) * minDist;
+        let ax = (targetX - this.others[i].x) * spring;
+        let ay = (targetY - this.others[i].y) * spring;
+        this.vx -= ax;
+        this.vy -= ay;
+        this.others[i].vx += ax;
+        this.others[i].vy += ay;
+      }
+    }
+  }
+
+  move() {
+    this.vy += gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x + this.diameter / 2 > width) {
+      this.x = width - this.diameter / 2;
+      this.vx *= friction;
+    } else if (this.x - this.diameter / 2 < 0) {
+      this.x = this.diameter / 2;
+      this.vx *= friction;
+    }
+    if (this.y + this.diameter / 2 > height) {
+      this.y = height - this.diameter / 2;
+      this.vy *= friction;
+    } else if (this.y - this.diameter / 2 < 0) {
+      //this.y = this.diameter / 2;
+      //this.vy *= friction;
+    }
+  }
+
+  display() {
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
+}
+</script></body></html>

@@ -140,6 +140,22 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                   height: 50.0,
                   child: ElevatedButton(
                     onPressed: () {
+                      Navigator.pushNamed(context, '/p5game');
+                    },
+                    child: Text("Drag quiz"),
+                  ),
+                )),
+          ),
+          Flexible(
+            flex: 1,
+            child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: SizedBox(
+                  //width: double.infinity / 2,
+                  width: MediaQuery.of(context).size.width,
+                  height: 50.0,
+                  child: ElevatedButton(
+                    onPressed: () {
                       Navigator.pushNamed(context, '/login');
                     },
                     child: Text("Leaderboards"),
