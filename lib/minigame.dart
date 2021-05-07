@@ -88,14 +88,16 @@ class _MiniGame extends State<MiniGame> with TickerProviderStateMixin {
       tmplst.add(new ObjColorAnswers(LstQuizs[0].random2[count][1],lst_r_coors[2],0.0,0.0));
       Random random = new Random();
       int randomNumber = random.nextInt(2) + 0;
-      TopOrBottomRightAnswer = randomNumber;
-      if(TopOrBottomRightAnswer == 0){
+      TopOrBottomRightAnswer = 0;
+      topAnswer = LstQuizs[0].normal[count][0];
+      //TopOrBottomRightAnswer = randomNumber;
+      /*if(TopOrBottomRightAnswer == 0){
         topAnswer = LstQuizs[0].normal[count][0];
         bottomAnswer = LstQuizs[0].random1[count][0];
       }else{
         bottomAnswer = LstQuizs[0].normal[count][0];
         topAnswer = LstQuizs[0].random2[count][0];
-      }
+      }*/
       tmplst = tmplst.toList()..shuffle();
       setState(() {
         LstAnswers = tmplst;
@@ -142,7 +144,7 @@ class _MiniGame extends State<MiniGame> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Drag quiz " + LstQuizs[0].group),
+        title: Text("Drag quiz "),
       ),
         body: Container(
             decoration: new BoxDecoration(
@@ -171,7 +173,7 @@ class _MiniGame extends State<MiniGame> with TickerProviderStateMixin {
                   //DragBox(Offset(0, MediaQuery.of(context).size.height/3), answer1, answer1Color),
                   //DragBox(Offset(MediaQuery.of(context).size.width/3, MediaQuery.of(context).size.height/3), answer2, answer2Color),
                   //DragBox(Offset((MediaQuery.of(context).size.width/3)*2, MediaQuery.of(context).size.height/3), answer3, answer3Color),
-                  Positioned(
+                  /*Positioned(
                     left: 0,
                     bottom: 0.0,
                     child: DragTarget(
@@ -201,7 +203,7 @@ class _MiniGame extends State<MiniGame> with TickerProviderStateMixin {
                         );
                       },
                     ),
-                  ),
+                  ),*/
                   Positioned(
                     left: 0,
                     top: 0.0,

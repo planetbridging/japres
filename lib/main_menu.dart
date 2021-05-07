@@ -94,7 +94,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                       //runtraining
                       //hiraganamutliplechoice
                     },
-                    child: Text("Training"),
+                    child: Text("Flashcard training"),
                   ),
                 )),
           ),

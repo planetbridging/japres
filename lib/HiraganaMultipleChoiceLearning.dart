@@ -35,7 +35,7 @@ class _HiraganaMultipleChoiceLearning
                           arguments: tmpobj
                       );
                     },
-                    child: Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()),
+                    child: Text("Set " + (i+1).toString()/*Text(((i + 1) + (i*10)).toString() + " to " + (((i + 1) + (i*10))+10).toString()*/),
                   ),
                 )),
                 Expanded( child:SizedBox(
@@ -49,7 +49,7 @@ class _HiraganaMultipleChoiceLearning
                           arguments: tmpobj
                       );
                     },
-                    child: Text(((i2 + 1) + (i2*10)).toString() + " to " + (((i2 + 1) + (i2*10))+10).toString()),
+                    child: Text(/*((i2 + 1) + (i2*10)).toString() + " to " + (((i2 + 1) + (i2*10))+10).toString()*/ "Set " + (i2+1).toString()),
                   ),
                 ))
               ])
@@ -135,12 +135,12 @@ class _HiraganaMultipleChoiceLearning
               height: 50.0,
               child: ElevatedButton(
                 onPressed: () {
-                  ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",88,characters.length-1);
+                  ObjPassQuiz tmpobj = generateQuizHiragana("Hiragana multiple choice",88,characters.length-3);
                   Navigator.pushNamed(context, '/hiraganaquiz',
                       arguments: tmpobj
                   );
                 },
-                child: Text("89 to 104"),
+                child: Text("Set 9"),
               ),
             ))]),
 
