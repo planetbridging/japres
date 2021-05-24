@@ -69,113 +69,122 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
                       child: Padding(
                           padding: EdgeInsets.all(16.0),
                           child: Text(
-                            "Welcome, What would you like to learn to day?",
+                            "Welcome, Let’s Master Hiragana!",
                             style: TextStyle(
                               fontSize: multiplier * unitHeightValue,
                             ),
                           ))),
                 ),
               ])),
-          Flexible(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  //width: double.infinity / 2,
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      //playLocal();
-                      /*var d = await getSavedUserData();
+
+          SingleChildScrollView(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          //width: double.infinity / 2,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              //playLocal();
+                              /*var d = await getSavedUserData();
                       print("userdata:::" + d);*/
-                      //Navigator.pushNamed(context, '/training');
-                      Navigator.pushNamed(context, '/training');
-                      //runtraining
-                      //hiraganamutliplechoice
-                    },
-                    child: Text("Flashcard training"),
+                              //Navigator.pushNamed(context, '/training');
+                              Navigator.pushNamed(context, '/training');
+                              //runtraining
+                              //hiraganamutliplechoice
+                            },
+                            child: Text("Flashcard training"),
+                          ),
+                        )),
                   ),
-                )),
-          ),
-          Flexible(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  //width: double.infinity / 2,
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/showquiz');
-                    },
-                    child: Text("Multiple choice"),
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          //width: double.infinity / 2,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/showquiz');
+                            },
+                            child: Text("Multiple choice"),
+                          ),
+                        )),
                   ),
-                )),
-          ),
-          Flexible(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  //width: double.infinity / 2,
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/matchall');
-                    },
-                    child: Text("Match all"),
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          //width: double.infinity / 2,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/matchall');
+                            },
+                            child: Text("Match all"),
+                          ),
+                        )),
                   ),
-                )),
-          ),
-          Flexible(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  //width: double.infinity / 2,
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/p5game');
-                    },
-                    child: Text("Drag quiz"),
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          //width: double.infinity / 2,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/p5game');
+                            },
+                            child: Text("Drag quiz"),
+                          ),
+                        )),
                   ),
-                )),
-          ),
-          Flexible(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  //width: double.infinity / 2,
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: Text("Leaderboards"),
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          //width: double.infinity / 2,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/login');
+                            },
+                            child: Text("Leaderboards"),
+                          ),
+                        )),
                   ),
-                )),
+                  ]),
           ),
+
         ],
       ),
     ),
     
-    /*persistentFooterButtons: [
+    persistentFooterButtons: [
           Container(
             width: MediaQuery.of(context).copyWith().size.width,
             child: Row(
               children: [
                 Expanded(
                   child: FlatButton(
-                    child: Text('Login'),
+                    child: Text('Info'),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/info');
                     },
                   ),
                 ),
@@ -203,7 +212,7 @@ class _MainMenu extends State<MainMenu> with TickerProviderStateMixin {
               ],
             ),
           )
-        ]*/
+        ]
     
     );
   }

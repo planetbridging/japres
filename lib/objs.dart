@@ -53,6 +53,47 @@ class ObjCardHat {
       this.cardNames.add("Card " + number.toString());
     }
   }
+
+  void sortCards(){
+    List<ObjTwoSideCard> tmpobjlstcards = new List<ObjTwoSideCard>();
+    for(int i = 0; i < this.objlstcards.length; i++) {
+      var cn = this.objlstcards[i].side1;
+      if(cn.contains("_")){
+        if(cn.contains("Info")){
+          tmpobjlstcards.add(this.objlstcards[i]);
+          break;
+        }
+      }
+    }
+    for(int i = 0; i < this.objlstcards.length; i++){
+
+      for(int s = 0; s < this.objlstcards.length; s++) {
+        var cn = this.objlstcards[s].side1;
+        if(cn.contains("_")){
+          int cnum = int.parse(cn.split("_")[1]);
+          if(cnum == (i+1)){
+            print(this.objlstcards[s].cardnumber);
+
+            if(!cn.contains("Info")){
+              tmpobjlstcards.add(this.objlstcards[s]);
+            }
+            //print((i+1).toString() + "/" + this.objlstcards[s].cardnumber.toString());
+            break;
+          }
+        }else{
+          print(cn);
+        }
+        /*
+
+
+        */
+      }
+
+      //print(this.objlstcards[i].cardnumber);
+    }
+    print(tmpobjlstcards.length.toString() + "/" + this.objlstcards.length.toString());
+    this.objlstcards = tmpobjlstcards;
+  }
 }
 
 

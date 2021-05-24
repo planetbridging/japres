@@ -11,6 +11,7 @@ import 'objsWeb.dart';
 import 'HiraganaMultipleChoiceLearning.dart';
 import 'HiraganaQuiz.dart';
 import 'minigame.dart';
+import 'info.dart';
 
 objoFacebook oFacebook = null;
 
@@ -24,12 +25,13 @@ void main() {
       ShowWeb.routeName: (context) => ShowWeb(),
       Login.routeName: (context) => Login(),
       HiraganaQuiz.routeName: (context) =>HiraganaQuiz(),
-  '/': (context) => SplashScreen(),
+      '/': (context) => SplashScreen(),
       '/mainmenu': (context) => MainMenu(),
       '/training': (context) => TrainingPage(),
       '/matchall': (context) => MatchAll(),
       '/showquiz': (context) => HiraganaMultipleChoiceLearning(),
       '/p5game': (context) => MiniGame(),
+      '/info': (context) => Info(),
 
       //p5game
 

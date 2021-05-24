@@ -58,6 +58,7 @@ class _TrainingPage extends State<TrainingPage> with TickerProviderStateMixin {
         }
       }
       showLoading = false;
+      deck.sortCards();
     });
 
     print("deck " + deck.objlstcards.length.toString());
@@ -176,6 +177,7 @@ class _TrainingPage extends State<TrainingPage> with TickerProviderStateMixin {
                       setState(() {
                         if (selectedDeck < deck.objlstcards.length - 1) {
                           selectedDeck += 1;
+                          print( deck.objlstcards[selectedDeck].side1);
                           isFront = true;
                         }
                       });

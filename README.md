@@ -1,6 +1,6 @@
 # japres
 
-A new Flutter project.
+Fun with hiragana
 
 ## Getting Started
 

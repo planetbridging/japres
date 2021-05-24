@@ -24,7 +24,7 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
 
   _onShare(BuildContext context) async {
     final RenderBox box = context.findRenderObject() as RenderBox;
-    String txtshare = title + " " + results + " check out our app on https://pressback.space:8443";
+    String txtshare = title + " " + results + " check out our app on http://japresapps.com/";
     await Share.share(txtshare,
         subject: txtshare,
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
@@ -55,7 +55,7 @@ class _QuizDone extends State<QuizDone> with TickerProviderStateMixin {
         if(info.contains(":")){
           print("can upload");
           var id = info.split(":::")[0];
-          final _authority = "pressback.space:8443";
+          final _authority = "japresapps.com";
           final _path = "/setrank";
           var queryParameters = {
             'id': id,
