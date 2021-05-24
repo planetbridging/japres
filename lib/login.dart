@@ -43,7 +43,7 @@ Future<http.Response> getDynData(String link, String path,var parms){
 }
 
 Future<http.Response> fetchBoard() {
-  return http.get(Uri.https('pressback.space:8443', '/leadboards'));
+  return http.get(Uri.https('japresapps.com', '/leadboards'));
 }
 
 class Login extends StatefulWidget {
@@ -121,7 +121,7 @@ class _Login extends State<Login> with TickerProviderStateMixin {
 
   setCurrentUser(String id) async{
     lstUserRanks.clear();
-    final _authority = "pressback.space:8443";
+    final _authority = "japresapps.com";
     final _path = "/getrank";
     var queryParameters = {
       'id': id

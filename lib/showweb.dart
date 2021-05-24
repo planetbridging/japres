@@ -44,7 +44,7 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
     _onStateChanged =
         flutterWebviewPlugin.onUrlChanged.listen((String state) async {
 
-      if (state.contains("https://pressback.space:8443/complete.html")) {
+      if (state.contains("https://japresapps.com/complete.html")) {
         tokenPassed = state;
         //print("YAYYY"+tokenPassed+"wht");
 
@@ -70,7 +70,7 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
       print("YAYYY"+tokenPassed+"wht");
       print(state);
     });
-    oFB = new objoFacebook("https://pressback.space:8443/complete.html");
+    oFB = new objoFacebook("https://japresapps.com/complete.html");
   }
 
   @override
@@ -95,8 +95,11 @@ class _ShowWeb extends State<ShowWeb> with TickerProviderStateMixin {
     if (loginType != "") {
       if (loginType == "facebook") {
         loginPath = oFB.url;
+        //loginPath = "https://google.com";
       }
     }
+
+    print(loginPath);
     return //Scaffold( body:
 
         WebviewScaffold(
